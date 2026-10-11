@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SteamRIP Game Hub</title>
+  <meta name="description" content="SteamRIP Game Hub is a Windows library launcher. Preview themes and download the zip." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" />
+  <style>
+    :root {
+      --bg: #0b1016;
+      --surface: #141b24;
+      --raised: #1c2633;
+      --fg: #e8eef4;
+      --muted: #8ea0b3;
+      --accent: #1a9fff;
+      --ink: #041018;
+      --border: #2a3646;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    h1, h2, h3, .brand { font-family: Outfit, system-ui, sans-serif; }
+    a { color: inherit; }
+    header {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(10px);
+    }
+    .brand { font-weight: 700; }
+    .sub { color: var(--muted); font-size: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; min-height: 44px;
+      padding: 0 18px; border-radius: 12px; background: var(--accent);
+      color: var(--ink); font-weight: 700; text-decoration: none;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 20px; }
+    .hero { display: grid; gap: 36px; align-items: center; }
+    @media (min-width: 860px) { .hero { grid-template-columns: 1fr 1.15fr; } }
+    h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.1; margin: 8px 0; }
+    .kicker { color: var(--accent); letter-spacing: 0.16em; text-transform: uppercase; font-size: 13px; font-weight: 700; }
+    .muted { color: var(--muted); }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
+    .ghost { color: var(--muted); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .chip {
+      min-height: 40px; border-radius: 999px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); padding: 0 12px; cursor: pointer;
+    }
+    .chip.on { border-color: var(--accent); background: var(--raised); color: var(--fg); }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .lib { display: flex; overflow: hidden; border-radius: 12px; border: 1px solid var(--border); }
+    .side { width: 140px; padding: 12px; flex-shrink: 0; }
+    .side p { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.12em; opacity: 0.6; }
+    .nav { border-radius: 8px; padding: 6px 8px; font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; flex: 1; }
+    .card { aspect-ratio: 2/3; border-radius: 6px; position: relative; overflow: hidden; }
+    .card span { position: absolute; left: 8px; right: 8px; bottom: 8px; font-size: 12px; font-weight: 700; }
+    .hrs { margin: 4px 0 0; font-size: 11px; opacity: 0.6; }
+    .meta { display: flex; justify-content: space-between; font-size: 12px; opacity: 0.7; margin-bottom: 8px; }
+    .features { display: grid; gap: 18px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    @media (min-width: 800px) { .features .inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; } }
+    .steps { display: grid; gap: 12px; }
+    @media (min-width: 800px) { .steps { grid-template-columns: 1fr 1fr 1fr; } }
+    .step { border: 1px solid var(--border); background: var(--surface); border-radius: 16px; padding: 16px; }
+    .end { text-align: center; padding-bottom: 64px; }
+    @media (max-width: 640px) { .side { display: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="brand">SteamRIP Game Hub</div>
+      <div class="sub">Windows library launcher</div>
+    </div>
+    <a class="btn" href="SteamRIP_GameHub_Launcher.zip" download>Download</a>
+  </header>
+
+  <div class="wrap hero">
+    <div>
+      <div class="kicker">Your library, your look</div>
+      <h1>A Big Picture library for the games you already have.</h1>
+      <p class="muted">SteamRIP Game Hub scans a folder of games, pulls covers, and lays them out as glass cards. Switch themes, card frames, and motion without leaving the library.</p>
+      <div class="row">
+        <a class="btn" href="SteamRIP_GameHub_Launcher.zip" download>Download the zip</a>
+        <a class="ghost" href="#themes">Preview themes</a>
+      </div>
+      <p class="muted">Windows build · unzip and run the launcher</p>
+    </div>
+    <div id="themes">
+      <div class="chips" id="chips"></div>
+      <p class="muted" id="blurb"></p>
+      <div class="lib" id="lib">
+        <aside class="side">
+          <p>LIBRARY</p>
+          <div class="nav" id="nav-all">All games</div>
+          <div class="nav">Favorites</div>
+          <div class="nav">Recent</div>
+        </aside>
+        <div style="flex:1; padding:12px; min-width:0;">
+          <div class="meta"><span>6 games</span><span id="theme-name"></span></div>
+          <div class="grid" id="grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="features">
+    <div class="inner wrap">
+      <div><h3>A real library</h3><p class="muted">Scan a games folder, hide entries without an exe, sort by favorites or last played, and keep titles and playtime on the card.</p></div>
+      <div><h3>Six built-in themes</h3><p class="muted">Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, and Forest.</p></div>
+      <div><h3>Cards that feel like Steam</h3><p class="muted">Capsule, DVD case, steelbook, and polaroid frames, with lift and glow on hover.</p></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <h2>How to use it</h2>
+    <div class="steps">
+      <div class="step"><div class="kicker">1</div><h3>Download</h3><p class="muted">Grab the zip. Unzip it anywhere on Windows.</p></div>
+      <div class="step"><div class="kicker">2</div><h3>Point it at your games</h3><p class="muted">Pick the folder. The launcher finds executables and fetches covers.</p></div>
+      <div class="step"><div class="kicker">3</div><h3>Tune the look</h3><p class="muted">Pick a theme, card style, and animation, then launch from the grid.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap end">
+    <h2>Ready when you are</h2>
+    <p class="muted">One zip. No account. Themes live inside the app.</p>
+    <p><a class="btn" href="SteamRIP_GameHub_Launcher.zip" download>Download SteamRIP Game Hub</a></p>
+  </div>
+
+  <script>
+    const themes = [
+      { name: "Big Picture", bg: "#0b1016", card: "#141b24", accent: "#1a9fff", text: "#e8eef4", sidebar: "#0b1016", row: "#1c2633", blurb: "The default. Charcoal, steam blue, glass cards." },
+      { name: "Steam Classic", bg: "#1b2838", card: "#171a21", accent: "#66c0f4", text: "#c7d5e0", sidebar: "#171a21", row: "#1e2329", blurb: "The familiar client palette, quieter glow." },
+      { name: "Midnight Purple", bg: "#0b0512", card: "#1a102f", accent: "#9d4edd", text: "#ffffff", sidebar: "#12081c", row: "#1a1230", blurb: "Violet glass over near-black." },
+      { name: "Cyber Neon", bg: "#0a0a0f", card: "#12121a", accent: "#00f5d4", text: "#e0fff9", sidebar: "#08080c", row: "#101018", blurb: "Mint neon on charcoal." },
+      { name: "Ember", bg: "#140a08", card: "#1f100c", accent: "#ff6b35", text: "#ffe8d6", sidebar: "#0f0705", row: "#1c100c", blurb: "Warm coal and ember orange." },
+      { name: "Forest", bg: "#0a120e", card: "#122018", accent: "#3dd68c", text: "#d4f5e4", sidebar: "#07100b", row: "#0e1a14", blurb: "Low green light, quiet library." }
+    ];
+    const games = [
+      ["Ash Harbor", "42.1 hrs", 200],
+      ["Iron Vale", "18.4 hrs", 28],
+      ["Lumen Drift", "9.2 hrs", 168],
+      ["Black Orchard", "61.0 hrs", 280],
+      ["North Relay", "3.6 hrs", 210],
+      ["Glass Meridian", "27.8 hrs", 330]
+    ];
+    const chips = document.getElementById("chips");
+    const lib = document.getElementById("lib");
+    const grid = document.getElementById("grid");
+    let current = 0;
+    function paint(i) {
+      current = i;
+      const t = themes[i];
+      lib.style.background = t.bg;
+      lib.style.color = t.text;
+      lib.querySelector(".side").style.background = t.sidebar;
+      document.getElementById("nav-all").style.background = t.row;
+      document.getElementById("nav-all").style.color = t.accent;
+      document.getElementById("theme-name").textContent = t.name;
+      document.getElementById("theme-name").style.color = t.accent;
+      document.getElementById("blurb").textContent = t.blurb;
+      chips.querySelectorAll("button").forEach((b, n) => b.classList.toggle("on", n === i));
+    }
+    themes.forEach((t, i) => {
+      const b = document.createElement("button");
+      b.className = "chip" + (i === 0 ? " on" : "");
+      b.innerHTML = '<span class="dot" style="background:' + t.accent + '"></span>' + t.name;
+      b.onclick = () => paint(i);
+      chips.appendChild(b);
+    });
+    games.forEach(([title, hrs, hue]) => {
+      const wrap = document.createElement("article");
+      wrap.innerHTML = '<div class="card" style="background:linear-gradient(160deg,hsl(' + hue + ' 55% 42%),hsl(' + hue + ' 40% 14%))"><span>' + title + '</span></div><p class="hrs">' + hrs + '</p>';
+      grid.appendChild(wrap);
+    });
+    paint(0);
+  </script>
+</body>
+</html>
