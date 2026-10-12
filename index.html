@@ -1,73 +1,1502 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0e1419"><title>SteamRIP Game Hub</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1016">
+<meta name="description" content="SteamRIP Game Hub — Windows library launcher with built-in SteamRIP browser, download manager, 7-Zip extraction, and six themes.">
+<title>SteamRIP Game Hub</title>
 <style>
-:root{color-scheme:dark;--bg:#0e1419;--surface:#151d25;--raised:#1a232e;--line:#2a3541;--text:#f4f7fa;--muted:#9aa8b6;--accent:#1a9fff;--ink:#06131e}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);z-index:5}.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:-.03em}.logo{display:grid;place-items:center;width:36px;height:36px;border-radius:9px;background:var(--accent);color:var(--ink);font-size:18px}.sub{display:block;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 17px;background:var(--accent);color:var(--ink);font-weight:700;border-radius:8px;border:0}.hero{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:48px;padding-top:58px;padding-bottom:58px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.17em;font-weight:800;color:var(--accent)}h1{font-size:clamp(36px,5vw,56px);line-height:1.04;letter-spacing:-.055em;margin:14px 0 18px}p{color:var(--muted)}.lead{font-size:17px;max-width:480px}.actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:27px}.quiet{font-size:13px;color:var(--muted)}.preview{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--surface);box-shadow:0 22px 65px #0005}.preview-head{height:48px;padding:0 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:12px;font-weight:700}.dots{display:flex;gap:5px}.dots i{width:8px;height:8px;border-radius:50%;background:#596572}.dots i:first-child{background:#ff6259}.dots i:nth-child(2){background:#ffc04d}.dots i:nth-child(3){background:#35c96f}.lib{display:flex;min-height:390px;background:var(--libbg,#0e1419);color:var(--libtext,#fff)}.sidebar{width:135px;flex-shrink:0;background:var(--libside,#0a0e12);padding:13px 9px;border-right:1px solid #ffffff0d;display:flex;flex-direction:column}.smallcap{font-size:9px;letter-spacing:.13em;text-transform:uppercase;opacity:.48;font-weight:800;padding:5px 8px 10px}.navitem{font-size:11px;padding:8px;border-radius:5px;margin-bottom:3px;color:inherit;opacity:.8;text-align:left;background:transparent;border:0;width:100%;font-family:inherit}.navitem:hover{background:#ffffff0c}.search input{width:94px;max-width:100%;background:transparent;color:inherit;border:0;outline:0;font:inherit}.search input::placeholder{color:#ffffff80}.navitem.active{background:var(--librow,#16202a);color:var(--libaccent,var(--accent));opacity:1}.collection{margin-top:auto;border:1px solid #ffffff19;border-radius:7px;padding:9px;font-size:10px;opacity:.75}.libmain{min-width:0;flex:1;padding:15px}.libtitle{font-size:17px;font-weight:750;letter-spacing:-.03em}.libhint{font-size:10px;opacity:.5}.search{font-size:10px;border:1px solid #ffffff20;padding:6px 9px;border-radius:5px;color:#ffffff80}.libtoolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;gap:8px}.feature{position:relative;height:137px;border-radius:7px;overflow:hidden;background:#171c21;margin-bottom:17px}.feature img{width:100%;height:100%;object-fit:cover;object-position:center 35%}.feature:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000e 0%,#0008 48%,transparent)}.featurecopy{position:absolute;z-index:1;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:15px}.featurecopy .eyebrow{font-size:8px}.featurecopy strong{font-size:16px;color:white;margin:3px 0}.featurecopy small{color:#ffffffad;font-size:10px}.play{margin-top:8px;background:#ffffff1c;border-radius:4px;padding:4px 8px;color:white;font-size:10px}.gameshead{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:9px}.gamegrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.game{min-width:0}.cover{aspect-ratio:2/3;overflow:hidden;background:linear-gradient(145deg,#273847,#10151c);border:1px solid #ffffff15;border-radius:5px;transition:transform .18s,border-color .18s}.game:hover .cover{transform:translateY(-3px);border-color:var(--libaccent,var(--accent))}.cover img{width:100%;height:100%;display:block;object-fit:cover}.game b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.game small{font-size:9px;opacity:.5}.themes{border-top:1px solid var(--line);padding:14px 15px}.themebar{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:10px}.themebuttons{display:flex;flex-wrap:wrap;gap:6px}.themebuttons button{border:1px solid var(--line);background:transparent;color:var(--muted);padding:6px 8px;border-radius:6px;font-size:10px}.themebuttons button[aria-pressed=true]{background:var(--raised);color:var(--text);border-color:var(--accent)}.swatch{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.features{border-block:1px solid var(--line);background:#121920;padding:34px 0}.featuregrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.featuregrid h3{font-size:15px;margin:0 0 5px}.featuregrid p{font-size:13px;margin:0}.iconbox{width:35px;height:35px;border-radius:7px;background:var(--raised);display:grid;place-items:center;color:var(--accent);margin-bottom:12px}.how{padding:48px 0}.how h2,.end h2{letter-spacing:-.035em;font-size:25px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.step{border:1px solid var(--line);border-radius:10px;padding:18px;background:var(--surface)}.step em{font-style:normal;font-size:12px;font-weight:800;color:var(--accent)}.step h3{font-size:15px;margin:7px 0 3px}.step p{font-size:12px;margin:0}.end{text-align:center;padding:15px 0 65px}.end p{max-width:540px;margin:8px auto 20px;font-size:14px}footer{border-top:1px solid var(--line);padding:20px 0;color:var(--muted);font-size:11px}
-@media(max-width:850px){.hero{grid-template-columns:1fr;gap:30px;padding-top:40px}.featuregrid{gap:18px}.sidebar{width:115px}.gamegrid{grid-template-columns:repeat(5,minmax(0,1fr))}}@media(max-width:560px){.wrap{width:min(100% - 24px,1120px)}.topbar{height:60px}.brand{font-size:13px}.brand .sub{font-size:10px}.topbar .btn{padding:9px 11px;font-size:12px}.hero{padding-top:32px;padding-bottom:32px;gap:24px}h1{font-size:39px}.lead{font-size:15px}.lib{min-height:330px}.sidebar{display:none}.libmain{padding:10px}.gamegrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.game:nth-child(n+4){display:none}.feature{height:112px}.featuregrid,.steps{grid-template-columns:1fr;gap:20px}.features{padding:26px 0}.how{padding:32px 0}.preview-head{height:43px}}
-</style></head>
+:root {
+  color-scheme: dark;
+  --bg: #0b1016;
+  --surface: #141b24;
+  --raised: #1c2633;
+  --line: #2a3646;
+  --text: #e8eef4;
+  --muted: #8ea0b3;
+  --accent: #1a9fff;
+  --ink: #06131e;
+  --sidebar: #0b1016;
+  --row: #1c2633;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+.wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.anim-in { animation: pageIn 0.7s var(--ease-out) both; }
+.anim-in-d1 { animation-delay: 0.08s; }
+.anim-in-d2 { animation-delay: 0.16s; }
+.anim-in-d3 { animation-delay: 0.28s; }
+
+.topbar {
+  height: 64px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(18px) saturate(1.2);
+  z-index: 30;
+  transition: border-color 0.3s;
+}
+.topbar .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+  transition: background 0.35s, transform 0.25s var(--ease-spring);
+}
+.brand:hover .logo { transform: scale(1.06); }
+.brand .sub {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 1px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  border-radius: 8px;
+  border: 0;
+  transition: filter 0.15s, transform 0.2s var(--ease-spring), background 0.35s, box-shadow 0.25s;
+}
+.btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.btn:active { transform: translateY(0); }
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  font-weight: 600;
+  box-shadow: none;
+}
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  filter: none;
+  box-shadow: none;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 0.92fr 1.18fr;
+  align-items: center;
+  gap: 40px;
+  padding: 48px 0 44px;
+}
+.eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  color: var(--accent);
+  transition: color 0.35s;
+}
+h1 {
+  font-size: clamp(34px, 4.6vw, 50px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  margin: 12px 0 14px;
+  font-weight: 800;
+}
+p { color: var(--muted); }
+.lead { font-size: 16px; max-width: 440px; line-height: 1.55; }
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.meta-row span { display: inline-flex; align-items: center; gap: 6px; }
+.meta-row span::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.9;
+  transition: background 0.35s;
+}
+
+.preview {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 28px 80px #0007, 0 0 0 1px #ffffff07 inset;
+  transition: box-shadow 0.4s, border-color 0.35s;
+}
+.preview:hover {
+  box-shadow: 0 32px 90px #0008, 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent) inset;
+}
+.preview-head {
+  height: 38px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  font-size: 11.5px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--surface) 75%, #000);
+}
+.dots { display: flex; gap: 5px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: #596572; }
+.dots i:nth-child(1) { background: #ff6259; }
+.dots i:nth-child(2) { background: #ffc04d; }
+.dots i:nth-child(3) { background: #35c96f; }
+
+.app-chrome {
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  background: var(--libbg, #0b1016);
+  color: var(--libtext, #e8eef4);
+  transition: background 0.4s, color 0.35s;
+}
+.app-panels {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-header {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+  background: var(--libside, #0b1016);
+  border-bottom: 1px solid #ffffff0c;
+  flex-shrink: 0;
+  transition: background 0.4s;
+}
+.app-header .app-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--libaccent, var(--accent));
+  display: grid;
+  place-items: center;
+  color: #06131e;
+  font-size: 10px;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: background 0.35s;
+}
+.app-header .brand-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex: 1;
+}
+.app-header .game-count {
+  font-size: 10px;
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.tabbar {
+  display: flex;
+  gap: 0;
+  padding: 0 8px;
+  background: var(--libside, #0b1016);
+  border-bottom: 1px solid #ffffff0c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.4s;
+}
+.tab {
+  padding: 11px 18px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  opacity: 0.45;
+  position: relative;
+  transition: opacity 0.2s, color 0.2s;
+}
+.tab:hover { opacity: 0.8; }
+.tab.active {
+  opacity: 1;
+  color: var(--libaccent, var(--accent));
+}
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--libaccent, var(--accent));
+  border-radius: 2px 2px 0 0;
+  transition: left 0.3s var(--ease-out), width 0.3s var(--ease-out), background 0.35s;
+  pointer-events: none;
+}
+
+.lib-body {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.985);
+  transition:
+    opacity 0.32s var(--ease-out),
+    transform 0.32s var(--ease-out),
+    visibility 0.32s;
+  z-index: 0;
+}
+.lib-body.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  z-index: 1;
+}
+
+.sidebar-rail {
+  width: 32px;
+  flex-shrink: 0;
+  background: var(--libside, #0b1016);
+  border-right: 1px solid #ffffff0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  transition: background 0.4s;
+}
+.rail-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  border: 0;
+  background: #ffffff10;
+  color: inherit;
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+  opacity: 0.7;
+  transition: background 0.15s, opacity 0.15s;
+}
+.rail-btn:hover { background: #ffffff1a; opacity: 1; }
+
+.sidebar {
+  width: 132px;
+  flex-shrink: 0;
+  background: var(--libside, #0b1016);
+  padding: 10px 7px;
+  border-right: 1px solid #ffffff0c;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: background 0.4s, width 0.3s var(--ease-out), opacity 0.25s, padding 0.3s;
+  overflow: hidden;
+}
+.sidebar.collapsed {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  opacity: 0;
+  border-right-width: 0;
+}
+.smallcap {
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.42;
+  font-weight: 800;
+  padding: 3px 7px 7px;
+  white-space: nowrap;
+}
+.navitem {
+  font-size: 11px;
+  padding: 7px 8px;
+  border-radius: 5px;
+  color: inherit;
+  opacity: 0.7;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s, opacity 0.15s, color 0.15s;
+}
+.navitem:hover { background: #ffffff0c; opacity: 0.95; }
+.navitem.active {
+  background: var(--librow, #1c2633);
+  color: var(--libaccent, var(--accent));
+  opacity: 1;
+}
+.collection {
+  margin-top: auto;
+  border: 1px solid #ffffff16;
+  border-radius: 6px;
+  padding: 7px 8px;
+  font-size: 9.5px;
+  opacity: 0.7;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.collection strong {
+  display: block;
+  font-size: 15px;
+  margin-top: 2px;
+  opacity: 1;
+  color: var(--libtext, #fff);
+  transition: color 0.35s;
+}
+
+.libmain {
+  min-width: 0;
+  flex: 1;
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.25s;
+}
+.libmain.dimmed { opacity: 0.55; }
+
+.libtoolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+.libtitle { font-size: 14px; font-weight: 750; letter-spacing: -0.02em; }
+.libhint { font-size: 9.5px; opacity: 0.48; margin-top: 1px; }
+.toolbar-right { display: flex; align-items: center; gap: 6px; }
+.tool-btn {
+  font-size: 10px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  border: 1px solid #ffffff18;
+  background: #ffffff0a;
+  color: inherit;
+  opacity: 0.8;
+  font-weight: 600;
+  transition: background 0.15s, opacity 0.15s, border-color 0.15s;
+}
+.tool-btn:hover {
+  background: #ffffff14;
+  opacity: 1;
+  border-color: var(--libaccent, var(--accent));
+}
+.search {
+  font-size: 10px;
+  border: 1px solid #ffffff20;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #ffffff88;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #ffffff08;
+  transition: border-color 0.2s, background 0.2s;
+}
+.search:focus-within {
+  border-color: var(--libaccent, var(--accent));
+  background: #ffffff0c;
+}
+.search input {
+  width: 80px;
+  max-width: 100%;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  outline: 0;
+  font: inherit;
+}
+.search input::placeholder { color: #ffffff60; }
+
+.feature {
+  position: relative;
+  height: 112px;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #121820;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+}
+.feature:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px #0006;
+}
+.feature img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+  transition: transform 0.5s var(--ease-out);
+}
+.feature:hover img { transform: scale(1.04); }
+.feature::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000e 0%, #0008 42%, transparent 75%);
+  pointer-events: none;
+}
+.featurecopy {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12px 14px;
+}
+.featurecopy .eyebrow { font-size: 8px; letter-spacing: 0.12em; }
+.featurecopy strong { font-size: 14px; color: white; margin: 2px 0; }
+.featurecopy small { color: #ffffffa8; font-size: 10px; }
+.play {
+  margin-top: 6px;
+  background: #ffffff1c;
+  border-radius: 4px;
+  padding: 4px 9px;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.15s, color 0.15s;
+}
+.feature:hover .play {
+  background: var(--libaccent, var(--accent));
+  color: #06131e;
+}
+
+.gameshead {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.gamegrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px 7px;
+  flex: 1;
+  align-content: start;
+}
+.game {
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  animation: cardRise 0.45s var(--ease-out) forwards;
+}
+@keyframes cardRise {
+  to { opacity: 1; transform: none; }
+}
+.cover {
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: linear-gradient(145deg, #1e2a36, #0e1319);
+  border: 1px solid #ffffff12;
+  border-radius: 5px;
+  position: relative;
+  transition: transform 0.22s var(--ease-out), border-color 0.2s, box-shadow 0.25s;
+  will-change: transform;
+}
+.game:hover .cover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: var(--libaccent, var(--accent));
+  box-shadow:
+    0 10px 28px #0007,
+    0 0 18px color-mix(in srgb, var(--libaccent, var(--accent)) 40%, transparent);
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.35s var(--ease-out);
+}
+.game:hover .cover img { transform: scale(1.04); }
+.cover .fav-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #000a;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  color: #ffc04d;
+  opacity: 0.9;
+}
+.game b {
+  display: block;
+  font-size: 9.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+  transition: color 0.2s;
+}
+.game:hover b { color: var(--libaccent, var(--accent)); }
+.game small {
+  font-size: 8.5px;
+  opacity: 0.48;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.store-panel, .settings-panel {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  padding: 12px;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.985);
+  transition:
+    opacity 0.32s var(--ease-out),
+    transform 0.32s var(--ease-out),
+    visibility 0.32s;
+  z-index: 0;
+  box-sizing: border-box;
+}
+.store-panel.active, .settings-panel.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  z-index: 1;
+}
+
+.store-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.store-toolbar button {
+  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  border: 1px solid #ffffff16;
+  background: #ffffff0a;
+  color: inherit;
+  opacity: 0.85;
+  transition: background 0.15s, opacity 0.15s;
+}
+.store-toolbar button:hover { background: #ffffff16; opacity: 1; }
+.urlbar {
+  flex: 1;
+  min-width: 100px;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ffffff16;
+  background: #ffffff08;
+  color: #ffffffbb;
+}
+.store-viewport {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid #ffffff10;
+  background:
+    radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--libaccent, var(--accent)) 12%, transparent), transparent 55%),
+    linear-gradient(165deg, #121820, #0a0e14);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 28px;
+  min-height: 240px;
+  position: relative;
+  overflow: hidden;
+}
+.store-viewport::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#ffffff04 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff04 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.store-viewport > div { position: relative; z-index: 1; }
+.store-viewport .store-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--libaccent, var(--accent)) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--libaccent, var(--accent)) 40%, transparent);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+  font-size: 20px;
+  color: var(--libaccent, var(--accent));
+  transition: background 0.35s, border-color 0.35s, color 0.35s;
+}
+.store-viewport strong { display: block; font-size: 14px; margin-bottom: 6px; }
+.store-viewport p {
+  font-size: 12px;
+  max-width: 280px;
+  margin: 0 auto;
+  opacity: 0.65;
+  color: inherit;
+  line-height: 1.45;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+.setting-card {
+  border: 1px solid #ffffff12;
+  border-radius: 8px;
+  padding: 12px;
+  background: #ffffff06;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.setting-card:hover {
+  border-color: color-mix(in srgb, var(--libaccent, var(--accent)) 50%, transparent);
+  background: #ffffff0a;
+  transform: translateY(-2px);
+}
+.setting-card h4 { margin: 0 0 4px; font-size: 12px; font-weight: 700; }
+.setting-card p {
+  margin: 0;
+  font-size: 11px;
+  opacity: 0.6;
+  color: inherit;
+  line-height: 1.4;
+}
+.setting-card .tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 9.5px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: var(--libaccent, var(--accent));
+  color: #06131e;
+  font-weight: 700;
+  transition: background 0.35s;
+}
+
+.themes {
+  border-top: 1px solid var(--line);
+  padding: 11px 13px;
+  background: color-mix(in srgb, var(--surface) 88%, #000);
+  transition: border-color 0.35s;
+}
+.themebar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.themebuttons { display: flex; flex-wrap: wrap; gap: 5px; }
+.themebuttons button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 10px;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s;
+}
+.themebuttons button:hover { color: var(--text); transform: translateY(-1px); }
+.themebuttons button[aria-pressed="true"] {
+  background: var(--raised);
+  color: var(--text);
+  border-color: var(--accent);
+}
+.swatch {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  box-shadow: 0 0 0 1px #ffffff20;
+}
+
+.features {
+  border-block: 1px solid var(--line);
+  background: #0c1219;
+  padding: 42px 0;
+}
+.featuregrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.featuregrid article {
+  padding: 4px 0;
+  transition: transform 0.25s var(--ease-out);
+}
+.featuregrid article:hover { transform: translateY(-3px); }
+.featuregrid h3 {
+  font-size: 14.5px;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+.featuregrid p { font-size: 13px; margin: 0; line-height: 1.5; }
+.iconbox {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: var(--raised);
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  margin-bottom: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.35s, color 0.35s, transform 0.25s var(--ease-spring);
+}
+.featuregrid article:hover .iconbox { transform: scale(1.08); }
+
+.how { padding: 46px 0 18px; }
+.how h2, .end h2 {
+  letter-spacing: -0.035em;
+  font-size: 23px;
+  margin: 0 0 16px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+}
+.step {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  background: var(--surface);
+  transition: border-color 0.25s, transform 0.25s var(--ease-out), box-shadow 0.25s;
+}
+.step:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px #0005;
+}
+.step em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  transition: color 0.35s;
+}
+.step h3 { font-size: 14px; margin: 6px 0 4px; }
+.step p { font-size: 12.5px; margin: 0; line-height: 1.45; }
+
+.end { text-align: center; padding: 34px 0 56px; }
+.end p { max-width: 500px; margin: 0 auto 20px; font-size: 14px; }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 26px; padding-top: 32px; }
+  .featuregrid { gap: 14px; }
+  .sidebar { width: 118px; }
+  .sidebar-rail { display: none; }
+}
+@media (max-width: 600px) {
+  .wrap { width: min(100% - 24px, 1120px); }
+  .topbar { height: 56px; }
+  .brand { font-size: 13px; }
+  .brand .sub { font-size: 10px; }
+  .topbar .btn { padding: 8px 11px; font-size: 12px; }
+  .hero { padding-top: 24px; padding-bottom: 24px; gap: 20px; }
+  h1 { font-size: 32px; }
+  .lead { font-size: 14.5px; }
+  .sidebar { display: none; }
+  .libmain { padding: 9px; }
+  .gamegrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .game:nth-child(n+4) { display: none; }
+  .feature { height: 96px; }
+  .featuregrid, .steps, .settings-grid { grid-template-columns: 1fr; gap: 12px; }
+  .features { padding: 26px 0; }
+  .how { padding: 26px 0 10px; }
+  .tab { padding: 10px 12px; font-size: 10px; }
+  .app-chrome { height: 400px; }
+  .app-header { height: 38px; }
+}
+
+/* Confetti canvas */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+</style>
+</head>
 <body>
-<header class="topbar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:16px"><a class="brand" href="#top"><span class="logo">▶</span><span>SteamRIP Game Hub<span class="sub">Windows library launcher</span></span></a><a class="btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download</a></div></header>
-<main id="top"><section class="hero wrap"><div><div class="eyebrow">Your library, your look</div><h1>Your games.<br>One library.<br>Ready to play.</h1><p class="lead">SteamRIP Game Hub is a Windows game library and download manager built in Python. Browse SteamRIP inside the app, download a game, let the launcher unpack it with 7-Zip, then add it to your library with cover art. You can also add games already on your PC, whether they were bought or installed from another source.</p><div class="actions"><a class="btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download the zip</a><a class="quiet" href="#themes">Preview themes</a></div><p class="quiet">Windows app built with Python · 7-Zip path must be set in Settings</p></div>
-<div class="preview"><div class="preview-head"><span>SteamRIP Game Hub <span style="font-weight:400;color:var(--muted)">/ Live preview</span></span><span class="dots"><i></i><i></i><i></i></span></div><div class="lib" id="lib"><aside class="sidebar"><div class="smallcap">Your library</div><button class="navitem active" data-view="all" type="button">▦ &nbsp; All games</button><button class="navitem" data-view="recent" type="button">◷ &nbsp; Recently played</button><button class="navitem" data-view="favorites" type="button">☆ &nbsp; Favorites</button><div class="collection">COLLECTION<br><strong style="font-size:17px" id="collectionCount">06</strong> games</div></aside><div class="libmain"><div class="libtoolbar"><div><div class="libtitle">All games</div><div class="libhint">Your collection, at a glance</div></div><span class="search">⌕ <input id="gameSearch" aria-label="Search games" placeholder="Search library" /></span></div><div class="feature"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="Red Dead Redemption 2 artwork"><div class="featurecopy"><span class="eyebrow">Continue playing</span><strong>Red Dead Redemption 2</strong><small>42.1 hours played</small><span class="play">▶ Play</span></div></div><div class="gameshead"><span id="gamesHeading">Your games</span><span id="gamesCount" style="opacity:.45;font-weight:400"></span></div><div class="gamegrid" id="gamegrid"></div></div></div><div class="themes" id="themes"><div class="themebar"><span>Choose a look</span><span id="themeName" style="color:var(--muted)">Big Picture</span></div><div class="themebuttons" id="themebuttons"></div><p id="themeBlurb" style="font-size:10px;margin:9px 0 0">Deep navy, bright blue, and restrained surfaces.</p></div></div></section>
-<section class="features"><div class="wrap featuregrid"><article><div class="iconbox">▦</div><h3>A real library</h3><p>Add a local game folder or executable, find its cover art, and keep your collection organized with favorites and recently played.</p></article><article><div class="iconbox">◉</div><h3>Six built-in themes</h3><p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, and Forest. Accent colors follow your selected preset.</p></article><article><div class="iconbox">✳</div><h3>A library that fits your games</h3><p>Readable cover art, playtime details, favorites, and sorting. The games stay at the center of the interface.</p></article></div></section>
-<section class="how wrap"><h2>How to use it</h2><div class="steps"><article class="step"><em>01</em><h3>Download</h3><p>Download and extract the Python app package on Windows.</p></article><article class="step"><em>02</em><h3>Point it at your games</h3><p>Use the Store tab to browse and download, then set the 7-Zip path in Settings. You can also add a local game folder or executable and fetch cover art.</p></article><article class="step"><em>03</em><h3>Tune the look</h3><p>Set up 7-Zip, add local games, choose a theme, and launch supported games from your library.</p></article></div></section><section class="end wrap"><h2>Ready when you are</h2><p>The app combines a built-in SteamRIP browser, download handling, 7-Zip extraction, and a library for games already on your PC. Set your 7-Zip executable path in Settings before extracting archives.</p><a class="btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download SteamRIP Game Hub</a></section></main><footer><div class="wrap">SteamRIP Game Hub · Windows game library launcher</div></footer>
+<header class="topbar">
+  <div class="wrap inner">
+    <a class="brand" href="#top">
+      <span class="logo">▶</span>
+      <span>SteamRIP Game Hub<span class="sub">Windows library launcher</span></span>
+    </a>
+    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <div class="anim-in">
+      <div class="eyebrow">Store · Library · Settings</div>
+      <h1>Your games.<br>One library.<br>Ready to play.</h1>
+      <p class="lead">SteamRIP Game Hub is a Windows app built in Python. Browse SteamRIP in the Store tab, download a game, let it unpack with 7-Zip, then keep everything in a themed library with cover art, pinned games, and playtime.</p>
+      <div class="actions">
+        <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download the zip</a>
+        <a class="btn btn-ghost" href="#themes">Preview themes</a>
+      </div>
+      <div class="meta-row">
+        <span>Python · Windows</span>
+        <span>Built-in SteamRIP browser</span>
+        <span>7-Zip extraction</span>
+        <span>Six themes</span>
+      </div>
+    </div>
+
+    <div class="preview anim-in anim-in-d2" id="preview">
+      <div class="preview-head">
+        <span>SteamRIP Game Hub <span style="font-weight:400;color:var(--muted)">/ Live preview</span></span>
+        <span class="dots"><i></i><i></i><i></i></span>
+      </div>
+
+      <div class="app-chrome" id="appChrome">
+        <div class="app-header">
+          <span class="app-icon">▶</span>
+          <span class="brand-label">SteamRIP Game Hub</span>
+          <span class="game-count" id="headerCount">10 games</span>
+        </div>
+
+        <div class="tabbar" role="tablist" id="tabbar">
+          <button class="tab" data-tab="store" type="button" role="tab">STORE</button>
+          <button class="tab active" data-tab="library" type="button" role="tab">LIBRARY</button>
+          <button class="tab" data-tab="settings" type="button" role="tab">SETTINGS</button>
+          <div class="tab-indicator" id="tabIndicator"></div>
+        </div>
+
+        <div class="app-panels">
+        <div class="lib-body active" id="panelLibrary">
+          <div class="sidebar-rail">
+            <button class="rail-btn" id="sidebarToggle" type="button" title="Toggle sidebar">☰</button>
+          </div>
+          <aside class="sidebar" id="libSidebar">
+            <div class="smallcap">Your library</div>
+            <button class="navitem active" data-view="all" type="button">▦ &nbsp; All games</button>
+            <button class="navitem" data-view="favorites" type="button">☆ &nbsp; Pinned</button>
+            <button class="navitem" data-view="recent" type="button">◷ &nbsp; Recent</button>
+            <div class="collection">COLLECTION<br><strong id="collectionCount">10</strong> games</div>
+          </aside>
+          <div class="libmain" id="libMain">
+            <div class="libtoolbar">
+              <div>
+                <div class="libtitle" id="libTitle">All games</div>
+                <div class="libhint">Your collection, at a glance</div>
+              </div>
+              <div class="toolbar-right">
+                <button class="tool-btn" type="button" title="Fetch missing Steam covers">Covers</button>
+                <span class="search">⌕ <input id="gameSearch" aria-label="Search games" placeholder="Search" /></span>
+              </div>
+            </div>
+            <div class="feature">
+              <img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="Red Dead Redemption 2 artwork" width="600" height="112">
+              <div class="featurecopy">
+                <span class="eyebrow">Continue playing</span>
+                <strong>Red Dead Redemption 2</strong>
+                <small>42.1 hours played</small>
+                <span class="play">▶ Play</span>
+              </div>
+            </div>
+            <div class="gameshead">
+              <span id="gamesHeading">Your games</span>
+              <span id="gamesCount" style="opacity:.45;font-weight:400"></span>
+            </div>
+            <div class="gamegrid" id="gamegrid"></div>
+          </div>
+        </div>
+
+        <div class="store-panel" id="panelStore">
+          <div class="store-toolbar">
+            <button type="button" title="Back">←</button>
+            <button type="button" title="Forward">→</button>
+            <button type="button">SteamRIP</button>
+            <span class="urlbar">https://steamrip.com</span>
+            <button type="button" title="Open externally">↗</button>
+          </div>
+          <div class="store-viewport">
+            <div>
+              <div class="store-icon">◉</div>
+              <strong>Built-in SteamRIP browser</strong>
+              <p>Search and download from steamrip.com inside the app. Downloads are captured and can be extracted with 7-Zip automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-panel" id="panelSettings">
+          <div class="settings-grid">
+            <div class="setting-card">
+              <h4>7-Zip executable</h4>
+              <p>Point the app at 7z.exe so archives unpack after download.</p>
+              <span class="tag">Required for extract</span>
+            </div>
+            <div class="setting-card">
+              <h4>Theme</h4>
+              <p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, Forest — or save your own.</p>
+              <span class="tag">6 presets</span>
+            </div>
+            <div class="setting-card">
+              <h4>Library options</h4>
+              <p>Show playtime, pinned badges, cover glow, card tilt, and sort by name, recent, or playtime.</p>
+              <span class="tag">Toggles</span>
+            </div>
+            <div class="setting-card">
+              <h4>Cover art</h4>
+              <p>Fetch Steam library covers for local games that are missing artwork.</p>
+              <span class="tag">One-click</span>
+            </div>
+          </div>
+        </div>
+        </div><!-- /.app-panels -->
+      </div>
+
+      <div class="themes" id="themes">
+        <div class="themebar">
+          <span>Choose a look</span>
+          <span id="themeName" style="color:var(--muted)">Big Picture</span>
+        </div>
+        <div class="themebuttons" id="themebuttons"></div>
+        <p id="themeBlurb" style="font-size:10px;margin:8px 0 0;color:var(--muted)">Deep navy, bright blue, and restrained surfaces.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap featuregrid">
+      <article class="anim-in anim-in-d1">
+        <div class="iconbox">▦</div>
+        <h3>Store + Library + Settings</h3>
+        <p>Three tabs mirror the real app. Browse SteamRIP, manage downloads, then organize and launch from your library.</p>
+      </article>
+      <article class="anim-in anim-in-d2">
+        <div class="iconbox">◉</div>
+        <h3>Six built-in themes</h3>
+        <p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, and Forest — the same presets shipped in the launcher.</p>
+      </article>
+      <article class="anim-in anim-in-d3">
+        <div class="iconbox">✳</div>
+        <h3>Covers, playtime, pinned</h3>
+        <p>Add local folders or executables, fetch Steam covers, track playtime, pin favorites, and sort the way you want.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="how wrap">
+    <h2>How to use it</h2>
+    <div class="steps">
+      <article class="step">
+        <em>01</em>
+        <h3>Download & extract</h3>
+        <p>Get the Windows package, extract it, and run the app. No installer required.</p>
+      </article>
+      <article class="step">
+        <em>02</em>
+        <h3>Point it at your games</h3>
+        <p>Use the Store tab to browse and download, set the 7-Zip path in Settings, or add a local game folder and fetch cover art.</p>
+      </article>
+      <article class="step">
+        <em>03</em>
+        <h3>Tune the look & play</h3>
+        <p>Pick a theme, organize pinned and recent games, then launch supported titles from your library.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="end wrap">
+    <h2>Ready when you are</h2>
+    <p>Built-in SteamRIP browser, download handling, 7-Zip extraction, and a full library for games already on your PC. Set your 7-Zip path in Settings before extracting archives.</p>
+    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download SteamRIP Game Hub</a>
+  </section>
+</main>
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+<footer>
+  <div class="wrap">SteamRIP Game Hub · Windows game library launcher</div>
+</footer>
+
 <script>
 const catalog = [
-  {title:'Red Dead Redemption 2', id:'1174180', hours:'42.1 hrs', genre:'Adventure'},
-  {title:'Cyberpunk 2077', id:'1091500', hours:'18.4 hrs', genre:'RPG'},
-  {title:'ELDEN RING', id:'1245620', hours:'61.0 hrs', genre:'Action RPG'},
-  {title:"Baldur's Gate 3", id:'1086940', hours:'27.8 hrs', genre:'RPG'},
-  {title:'Hollow Knight: Silksong', id:'1030300', hours:'9.2 hrs', genre:'Metroidvania'},
-  {title:'Resident Evil 4', id:'2050650', hours:'3.6 hrs', genre:'Horror'},
-  {title:'Hogwarts Legacy', id:'990080', hours:'14.2 hrs', genre:'Adventure'},
-  {title:'Forza Horizon 5', id:'1551360', hours:'31.7 hrs', genre:'Racing'},
-  {title:'The Witcher 3: Wild Hunt', id:'292030', hours:'52.6 hrs', genre:'RPG'},
-  {title:'Dying Light 2', id:'534380', hours:'11.3 hrs', genre:'Action'},
-  {title:'Lethal Company', id:'1966720', hours:'8.5 hrs', genre:'Co-op Horror'},
-  {title:'SILENT HILL 2', id:'2124490', hours:'6.1 hrs', genre:'Horror'},
-  {title:'Dead Space', id:'1693980', hours:'10.4 hrs', genre:'Horror'},
-  {title:'DOOM Eternal', id:'782330', hours:'22.0 hrs', genre:'FPS'},
-  {title:'Portal 2', id:'620', hours:'12.8 hrs', genre:'Puzzle'},
-  {title:'Left 4 Dead 2', id:'550', hours:'19.6 hrs', genre:'Co-op FPS'},
-  {title:'Grand Theft Auto V', id:'271590', hours:'35.2 hrs', genre:'Open World'},
-  {title:'The Last of Us Part I', id:'1888930', hours:'13.1 hrs', genre:'Adventure'},
-  {title:'Black Myth: Wukong', id:'2358720', hours:'16.4 hrs', genre:'Action RPG'},
-  {title:'It Takes Two', id:'1426210', hours:'9.8 hrs', genre:'Co-op'}
+  { title: 'Red Dead Redemption 2', id: '1174180', hours: '42.1 hrs', genre: 'Adventure' },
+  { title: 'Cyberpunk 2077', id: '1091500', hours: '18.4 hrs', genre: 'RPG' },
+  { title: 'ELDEN RING', id: '1245620', hours: '61.0 hrs', genre: 'Action RPG' },
+  { title: "Baldur's Gate 3", id: '1086940', hours: '27.8 hrs', genre: 'RPG' },
+  { title: 'Hollow Knight: Silksong', id: '1030300', hours: '9.2 hrs', genre: 'Metroidvania' },
+  { title: 'Resident Evil 4', id: '2050650', hours: '3.6 hrs', genre: 'Horror' },
+  { title: 'Hogwarts Legacy', id: '990080', hours: '14.2 hrs', genre: 'Adventure' },
+  { title: 'Forza Horizon 5', id: '1551360', hours: '31.7 hrs', genre: 'Racing' },
+  { title: 'The Witcher 3: Wild Hunt', id: '292030', hours: '52.6 hrs', genre: 'RPG' },
+  { title: 'Dying Light 2', id: '534380', hours: '11.3 hrs', genre: 'Action' },
+  { title: 'Lethal Company', id: '1966720', hours: '8.5 hrs', genre: 'Co-op Horror' },
+  { title: 'SILENT HILL 2', id: '2124490', hours: '6.1 hrs', genre: 'Horror' },
+  { title: 'Dead Space', id: '1693980', hours: '10.4 hrs', genre: 'Horror' },
+  { title: 'DOOM Eternal', id: '782330', hours: '22.0 hrs', genre: 'FPS' },
+  { title: 'Portal 2', id: '620', hours: '12.8 hrs', genre: 'Puzzle' },
+  { title: 'Left 4 Dead 2', id: '550', hours: '19.6 hrs', genre: 'Co-op FPS' },
+  { title: 'Grand Theft Auto V', id: '271590', hours: '35.2 hrs', genre: 'Open World' },
+  { title: 'The Last of Us Part I', id: '1888930', hours: '13.1 hrs', genre: 'Adventure' },
+  { title: 'Black Myth: Wukong', id: '2358720', hours: '16.4 hrs', genre: 'Action RPG' },
+  { title: 'It Takes Two', id: '1426210', hours: '9.8 hrs', genre: 'Co-op' }
 ];
-const grid=document.getElementById('gamegrid');
-const navItems=[...document.querySelectorAll('[data-view]')];
-const search=document.getElementById('gameSearch');
-let view='all';
-function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-// Pick a fresh collection on every page visit, then assign a random recent list and favorites.
-const visitGames=shuffle(catalog).slice(0,10);
-const recentIds=new Set(shuffle(visitGames).slice(0,Math.min(5,visitGames.length)).map(g=>g.id));
-const favoriteIds=new Set(shuffle(visitGames).slice(0,Math.min(4,visitGames.length)).map(g=>g.id));
-function renderGames(){
-  const query=search.value.trim().toLowerCase();
-  let shown=visitGames.filter(g=>view==='recent'?recentIds.has(g.id):view==='favorites'?favoriteIds.has(g.id):true);
-  if(query) shown=shown.filter(g=>g.title.toLowerCase().includes(query)||g.genre.toLowerCase().includes(query));
-  grid.replaceChildren();
-  shown.forEach(g=>{
-    const card=document.createElement('article');card.className='game';
-    const cover=document.createElement('div');cover.className='cover';
-    const img=document.createElement('img');img.loading='lazy';img.alt=g.title+' cover art';
-    const id=g.id.trim();img.src=`https://cdn.akamai.steamstatic.com/steam/apps/${id}/library_600x900.jpg`;
-    img.onerror=()=>{img.remove();cover.textContent=g.title;cover.style.display='grid';cover.style.placeItems='center';cover.style.padding='8px';cover.style.textAlign='center';};
-    cover.appendChild(img);
-    const title=document.createElement('b');title.textContent=g.title;
-    const meta=document.createElement('small');meta.textContent=(recentIds.has(g.id)?g.hours+' played':g.genre)+(favoriteIds.has(g.id)?' · ★':'');
-    card.append(cover,title,meta);grid.appendChild(card);
-  });
-  document.getElementById('gamesHeading').textContent=({all:'Your games',recent:'Recently played',favorites:'Favorites'})[view];
-  document.getElementById('gamesCount').textContent=shown.length+' games';
-  document.getElementById('collectionCount').textContent=String(visitGames.length).padStart(2,'0');
-  navItems.forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+
+const grid = document.getElementById('gamegrid');
+const navItems = [...document.querySelectorAll('[data-view]')];
+const search = document.getElementById('gameSearch');
+let view = 'all';
+
+function shuffle(items) {
+  const a = [...items];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
-navItems.forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;renderGames();}));
-search.addEventListener('input',renderGames);
+
+const visitGames = shuffle(catalog).slice(0, 10);
+const recentIds = new Set(shuffle(visitGames).slice(0, Math.min(5, visitGames.length)).map(g => g.id));
+const favoriteIds = new Set(shuffle(visitGames).slice(0, Math.min(4, visitGames.length)).map(g => g.id));
+
+function renderGames() {
+  const query = search.value.trim().toLowerCase();
+  let shown = visitGames.filter(g =>
+    view === 'recent' ? recentIds.has(g.id) :
+    view === 'favorites' ? favoriteIds.has(g.id) : true
+  );
+  if (query) {
+    shown = shown.filter(g =>
+      g.title.toLowerCase().includes(query) || g.genre.toLowerCase().includes(query)
+    );
+  }
+  grid.replaceChildren();
+  shown.forEach((g, i) => {
+    const card = document.createElement('article');
+    card.className = 'game';
+    card.style.animationDelay = (i * 0.04) + 's';
+    const cover = document.createElement('div');
+    cover.className = 'cover';
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.alt = g.title + ' cover art';
+    img.src = `https://cdn.akamai.steamstatic.com/steam/apps/${g.id.trim()}/library_600x900.jpg`;
+    img.onerror = () => {
+      img.remove();
+      cover.textContent = g.title;
+      cover.style.display = 'grid';
+      cover.style.placeItems = 'center';
+      cover.style.padding = '8px';
+      cover.style.textAlign = 'center';
+      cover.style.fontSize = '10px';
+    };
+    cover.appendChild(img);
+    if (favoriteIds.has(g.id)) {
+      const badge = document.createElement('span');
+      badge.className = 'fav-badge';
+      badge.textContent = '★';
+      cover.appendChild(badge);
+    }
+    const title = document.createElement('b');
+    title.textContent = g.title;
+    const meta = document.createElement('small');
+    meta.textContent = recentIds.has(g.id) ? g.hours + ' played' : g.genre;
+    card.append(cover, title, meta);
+    grid.appendChild(card);
+  });
+  const labels = { all: 'Your games', recent: 'Recent', favorites: 'Pinned' };
+  const titles = { all: 'All games', recent: 'Recent', favorites: 'Pinned' };
+  document.getElementById('gamesHeading').textContent = labels[view];
+  document.getElementById('libTitle').textContent = titles[view];
+  document.getElementById('gamesCount').textContent = shown.length + ' games';
+  document.getElementById('collectionCount').textContent = String(visitGames.length).padStart(2, '0');
+  document.getElementById('headerCount').textContent = visitGames.length + ' games';
+  navItems.forEach(b => b.classList.toggle('active', b.dataset.view === view));
+}
+
+navItems.forEach(b => b.addEventListener('click', () => { view = b.dataset.view; renderGames(); }));
+search.addEventListener('input', renderGames);
 renderGames();
-const themes=[{name:'Big Picture',bg:'#0e1419',card:'#1a232e',accent:'#1a9fff',text:'#fff',side:'#0a0e12',row:'#16202a',blurb:'Deep navy, bright blue, and restrained surfaces.'},{name:'Steam Classic',bg:'#1b2838',card:'#171a21',accent:'#66c0f4',text:'#c7d5e0',side:'#171a21',row:'#1e2329',blurb:'A familiar client palette with restrained contrast.'},{name:'Midnight Purple',bg:'#0b0512',card:'#1a102f',accent:'#9d4edd',text:'#fff',side:'#12081c',row:'#1a1230',blurb:'Violet accents over near-black surfaces.'},{name:'Cyber Neon',bg:'#0a0a0f',card:'#12121a',accent:'#00d9bd',text:'#e0fff9',side:'#08080c',row:'#101018',blurb:'Mint accents and sharp contrast on charcoal.'},{name:'Ember',bg:'#140a08',card:'#1f100c',accent:'#ff6b35',text:'#ffe8d6',side:'#0f0705',row:'#1c100c',blurb:'Warm coal tones and ember orange.'},{name:'Forest',bg:'#0a120e',card:'#122018',accent:'#3dd68c',text:'#d4f5e4',side:'#07100b',row:'#0e1a14',blurb:'Quiet green accents on deep forest tones.'}];
-const buttons=document.getElementById('themebuttons');themes.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',i===0?'true':'false');b.innerHTML=`<span class="swatch" style="background:${t.accent}"></span>${t.name}`;b.addEventListener('click',()=>{document.querySelectorAll('#themebuttons button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');const lib=document.getElementById('lib');lib.style.setProperty('--libbg',t.bg);lib.style.setProperty('--libcard',t.card);lib.style.setProperty('--libaccent',t.accent);lib.style.setProperty('--libtext',t.text);lib.style.setProperty('--libside',t.side);lib.style.setProperty('--librow',t.row);document.getElementById('themeName').textContent=t.name;document.getElementById('themeBlurb').textContent=t.blurb;document.documentElement.style.setProperty('--accent',t.accent)});buttons.appendChild(b)});
-</script></body></html>
+
+const sidebar = document.getElementById('libSidebar');
+const libMain = document.getElementById('libMain');
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  const collapsing = !sidebar.classList.contains('collapsed');
+  sidebar.classList.toggle('collapsed');
+  libMain.classList.toggle('dimmed', !collapsing);
+});
+
+const tabs = [...document.querySelectorAll('.tab')];
+const tabbar = document.getElementById('tabbar');
+const indicator = document.getElementById('tabIndicator');
+const panelLibrary = document.getElementById('panelLibrary');
+const panelStore = document.getElementById('panelStore');
+const panelSettings = document.getElementById('panelSettings');
+
+function moveIndicator(tab) {
+  const barRect = tabbar.getBoundingClientRect();
+  const tabRect = tab.getBoundingClientRect();
+  indicator.style.left = (tabRect.left - barRect.left) + 'px';
+  indicator.style.width = tabRect.width + 'px';
+}
+
+function setTab(name) {
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  const active = tabs.find(t => t.dataset.tab === name);
+  if (active) moveIndicator(active);
+  panelLibrary.classList.toggle('active', name === 'library');
+  panelStore.classList.toggle('active', name === 'store');
+  panelSettings.classList.toggle('active', name === 'settings');
+}
+
+tabs.forEach(tab => tab.addEventListener('click', () => setTab(tab.dataset.tab)));
+requestAnimationFrame(() => {
+  const active = tabs.find(t => t.classList.contains('active'));
+  if (active) moveIndicator(active);
+});
+window.addEventListener('resize', () => {
+  const active = tabs.find(t => t.classList.contains('active'));
+  if (active) moveIndicator(active);
+});
+
+const themes = [
+  {
+    name: 'Big Picture',
+    bg: '#0b1016', card: '#141b24', accent: '#1a9fff', text: '#e8eef4',
+    side: '#0b1016', row: '#1c2633',
+    blurb: 'Deep navy, bright blue, and restrained surfaces.'
+  },
+  {
+    name: 'Steam Classic',
+    bg: '#1b2838', card: '#16202d', accent: '#66c0f4', text: '#c7d5e0',
+    side: '#171a21', row: '#2a475e',
+    blurb: 'Classic Steam client palette with familiar blue highlights.'
+  },
+  {
+    name: 'Midnight Purple',
+    bg: '#0b0512', card: '#1a102f', accent: '#9d4edd', text: '#ffffff',
+    side: '#12081c', row: '#1a1230',
+    blurb: 'Violet accents over near-black surfaces.'
+  },
+  {
+    name: 'Cyber Neon',
+    bg: '#0a0a0f', card: '#12121a', accent: '#00f5d4', text: '#e0fff9',
+    side: '#08080c', row: '#101018',
+    blurb: 'Mint accents and sharp contrast on charcoal.'
+  },
+  {
+    name: 'Ember',
+    bg: '#140a08', card: '#1f100c', accent: '#ff6b35', text: '#ffe8d6',
+    side: '#0f0705', row: '#1c100c',
+    blurb: 'Warm coal tones and ember orange.'
+  },
+  {
+    name: 'Forest',
+    bg: '#0a120e', card: '#122018', accent: '#3dd68c', text: '#d4f5e4',
+    side: '#07100b', row: '#0e1a14',
+    blurb: 'Quiet green accents on deep forest tones.'
+  }
+];
+
+const buttons = document.getElementById('themebuttons');
+themes.forEach((t, i) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+  b.innerHTML = `<span class="swatch" style="background:${t.accent}"></span>${t.name}`;
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#themebuttons button').forEach(x => x.setAttribute('aria-pressed', 'false'));
+    b.setAttribute('aria-pressed', 'true');
+    const chrome = document.getElementById('appChrome');
+    chrome.style.setProperty('--libbg', t.bg);
+    chrome.style.setProperty('--libcard', t.card);
+    chrome.style.setProperty('--libaccent', t.accent);
+    chrome.style.setProperty('--libtext', t.text);
+    chrome.style.setProperty('--libside', t.side);
+    chrome.style.setProperty('--librow', t.row);
+    document.getElementById('themeName').textContent = t.name;
+    document.getElementById('themeBlurb').textContent = t.blurb;
+    document.documentElement.style.setProperty('--accent', t.accent);
+    document.querySelectorAll('.game').forEach((card, idx) => {
+      card.style.animation = 'none';
+      void card.offsetWidth;
+      card.style.animation = '';
+      card.style.animationDelay = (idx * 0.03) + 's';
+    });
+  });
+  buttons.appendChild(b);
+});
+
+/* ── Click sounds — short noise bursts (real UI clicks, not tones) ── */
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function noiseBuffer(ctx, duration) {
+  const rate = ctx.sampleRate;
+  const len = Math.max(1, Math.floor(rate * duration));
+  const buf = ctx.createBuffer(1, len, rate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+  return buf;
+}
+
+function playClick(kind) {
+  try {
+    const ctx = getAudio();
+    const t = ctx.currentTime;
+
+    // Mechanical UI click: filtered noise + tiny body thump
+    const presets = {
+      tab:      { dur: 0.028, hp: 900,  lp: 4200, noise: 0.22, thump: 140, thumpGain: 0.07 },
+      nav:      { dur: 0.022, hp: 1200, lp: 5000, noise: 0.18, thump: 160, thumpGain: 0.05 },
+      theme:    { dur: 0.030, hp: 800,  lp: 3800, noise: 0.20, thump: 120, thumpGain: 0.06 },
+      download: { dur: 0.035, hp: 700,  lp: 4500, noise: 0.24, thump: 110, thumpGain: 0.09 },
+      default:  { dur: 0.024, hp: 1000, lp: 4500, noise: 0.18, thump: 150, thumpGain: 0.05 }
+    };
+    const p = presets[kind] || presets.default;
+
+    // Noise transient (the "tick")
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(ctx, p.dur);
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.value = p.hp;
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = p.lp;
+    const ng = ctx.createGain();
+    ng.gain.setValueAtTime(p.noise, t);
+    ng.gain.exponentialRampToValueAtTime(0.001, t + p.dur);
+    src.connect(hp);
+    hp.connect(lp);
+    lp.connect(ng);
+    ng.connect(ctx.destination);
+    src.start(t);
+    src.stop(t + p.dur + 0.01);
+
+    // Soft low thump (button body)
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(p.thump, t);
+    osc.frequency.exponentialRampToValueAtTime(40, t + 0.04);
+    const tg = ctx.createGain();
+    tg.gain.setValueAtTime(p.thumpGain, t);
+    tg.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
+    osc.connect(tg);
+    tg.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.05);
+
+    // Download gets a second lighter tick for a "confirm" feel
+    if (kind === 'download') {
+      const src2 = ctx.createBufferSource();
+      src2.buffer = noiseBuffer(ctx, 0.02);
+      const hp2 = ctx.createBiquadFilter();
+      hp2.type = 'highpass';
+      hp2.frequency.value = 1500;
+      const lp2 = ctx.createBiquadFilter();
+      lp2.type = 'lowpass';
+      lp2.frequency.value = 6000;
+      const g2 = ctx.createGain();
+      const t2 = t + 0.055;
+      g2.gain.setValueAtTime(0.12, t2);
+      g2.gain.exponentialRampToValueAtTime(0.001, t2 + 0.02);
+      src2.connect(hp2);
+      hp2.connect(lp2);
+      lp2.connect(g2);
+      g2.connect(ctx.destination);
+      src2.start(t2);
+      src2.stop(t2 + 0.03);
+    }
+  } catch (_) { /* audio blocked or unavailable */ }
+}
+
+/* Wire click sounds */
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => playClick('tab'));
+});
+navItems.forEach(b => {
+  b.addEventListener('click', () => playClick('nav'));
+});
+document.getElementById('sidebarToggle').addEventListener('click', () => playClick('nav'));
+document.querySelectorAll('.tool-btn, .store-toolbar button, .rail-btn').forEach(el => {
+  el.addEventListener('click', () => playClick('nav'));
+});
+document.getElementById('themebuttons').addEventListener('click', e => {
+  if (e.target.closest('button')) playClick('theme');
+});
+document.querySelectorAll('.btn-ghost').forEach(el => {
+  el.addEventListener('click', () => playClick('nav'));
+});
+
+/* ── Confetti on download ── */
+const confettiCanvas = document.getElementById('confetti-canvas');
+const confettiCtx = confettiCanvas.getContext('2d');
+let confettiPieces = [];
+let confettiRaf = null;
+
+function resizeConfetti() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+resizeConfetti();
+window.addEventListener('resize', resizeConfetti);
+
+function spawnConfetti(x, y) {
+  const colors = [
+    getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#1a9fff',
+    '#66c0f4', '#ffc04d', '#35c96f', '#ff6259', '#9d4edd', '#00f5d4', '#ffffff'
+  ];
+  const count = 90;
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+    const speed = 4 + Math.random() * 9;
+    confettiPieces.push({
+      x, y,
+      vx: Math.cos(angle) * speed * (0.4 + Math.random()),
+      vy: Math.sin(angle) * speed * 0.35 - (5 + Math.random() * 8),
+      w: 4 + Math.random() * 6,
+      h: 6 + Math.random() * 8,
+      color: colors[i % colors.length],
+      rot: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.35,
+      life: 1,
+      decay: 0.008 + Math.random() * 0.012,
+      gravity: 0.22 + Math.random() * 0.12
+    });
+  }
+  if (!confettiRaf) confettiRaf = requestAnimationFrame(tickConfetti);
+}
+
+function tickConfetti() {
+  confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiPieces = confettiPieces.filter(p => p.life > 0);
+  for (const p of confettiPieces) {
+    p.vy += p.gravity;
+    p.vx *= 0.99;
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rot += p.vr;
+    p.life -= p.decay;
+    confettiCtx.save();
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.rot);
+    confettiCtx.globalAlpha = Math.max(0, p.life);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    confettiCtx.restore();
+  }
+  if (confettiPieces.length) {
+    confettiRaf = requestAnimationFrame(tickConfetti);
+  } else {
+    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    confettiRaf = null;
+  }
+}
+
+document.querySelectorAll('.download-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    playClick('download');
+    const rect = btn.getBoundingClientRect();
+    spawnConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  });
+});
+</script>
+</body>
+</html>
+
