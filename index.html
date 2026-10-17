@@ -1168,8 +1168,8 @@ footer {
       <span class="logo">▶</span>
       <span>SteamRIP Game Hub<span class="sub">Next-Gen Windows library launcher</span></span>
     </a>
-    <!-- DOWNLOAD BUTTON #1 (Top Nav) -->
-    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download Launcher</a>
+    <!-- DOWNLOAD BUTTON #1 (Top Nav) — href set from DOWNLOAD_URL -->
+    <a class="btn download-btn" href="#">↓ Download Launcher</a>
   </div>
 </header>
 
@@ -1359,8 +1359,8 @@ footer {
   <section class="end wrap">
     <h2>Ready to transform your library?</h2>
     <p>Enjoy an integrated SteamRIP browser, automated 7-Zip extraction, and a gorgeous themed launcher for all your Windows games.</p>
-    <!-- DOWNLOAD BUTTON #2 (Bottom Call-to-Action) -->
-    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download SteamRIP Game Hub</a>
+    <!-- DOWNLOAD BUTTON #2 (Bottom Call-to-Action) — href set from DOWNLOAD_URL -->
+    <a class="btn download-btn" href="#">↓ Download SteamRIP Game Hub</a>
   </section>
 </main>
 
@@ -1399,6 +1399,9 @@ footer {
 </footer>
 
 <script>
+/* ── Single source of truth for the download link ── */
+const DOWNLOAD_URL = 'https://github.com/Darkgaemer/steamrip-launcher/releases/download/v3.0/SteamRIPGameHub.rar';
+
 const catalog = [
   { title: 'Red Dead Redemption 2', id: '1174180', hours: '42.1 hrs', genre: 'Adventure / Open World' },
   { title: 'Cyberpunk 2077', id: '1091500', hours: '18.4 hrs', genre: 'Sci-Fi RPG' },
@@ -1855,13 +1858,16 @@ function tickConfetti() {
   }
 }
 
+/* Apply the single DOWNLOAD_URL to every download button */
 document.querySelectorAll('.download-btn').forEach(btn => {
+  btn.href = DOWNLOAD_URL;
+  btn.setAttribute('download', ''); // hint browsers to treat as download
   btn.addEventListener('click', e => {
     playClick('download');
     const rect = btn.getBoundingClientRect();
     spawnConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
     spawnSparkles(e);
-    showToast('Download initialized! Package ready.');
+    showToast('Download started — SteamRIP Game Hub v3.0');
   });
 });
 </script>
