@@ -3,58 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1016">
-<meta name="description" content="SteamRIP Game Hub — Windows library launcher with built-in SteamRIP browser, download manager, 7-Zip extraction, and six themes.">
-<title>SteamRIP Game Hub</title>
+<meta name="theme-color" content="#05080c">
+<meta name="description" content="SteamRIP Game Hub — Next-gen Windows library launcher with built-in SteamRIP browser, download manager, 7-Zip extraction, and six themes.">
+<title>SteamRIP Game Hub — Next-Gen Windows Library Launcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
   color-scheme: dark;
-  --bg: #0b1016;
-  --surface: #141b24;
-  --raised: #1c2633;
-  --line: #2a3646;
-  --text: #e8eef4;
-  --muted: #8ea0b3;
-  --accent: #1a9fff;
-  --ink: #06131e;
-  --sidebar: #0b1016;
-  --row: #1c2633;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --bg: #030508;
+  --surface: #0a0f18;
+  --raised: #121a26;
+  --line: #192638;
+  --text: #f1f5f9;
+  --muted: #8899ac;
+  --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.35);
+  --ink: #020406;
+  --sidebar: #06090e;
+  --row: #111a26;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { 
+  scroll-behavior: smooth; 
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg);
+}
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font: 15px/1.65 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  position: relative;
+  letter-spacing: -0.01em;
 }
+
+/* Ambient lighting background effects */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  height: 700px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; }
-.wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+.wrap { width: min(1160px, calc(100% - 48px)); margin: auto; position: relative; z-index: 1; }
 
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: none; }
 }
-.anim-in { animation: pageIn 0.7s var(--ease-out) both; }
-.anim-in-d1 { animation-delay: 0.08s; }
-.anim-in-d2 { animation-delay: 0.16s; }
-.anim-in-d3 { animation-delay: 0.28s; }
+.anim-in { animation: pageIn 0.8s var(--ease-out) both; }
+.anim-in-d1 { animation-delay: 0.1s; }
+.anim-in-d2 { animation-delay: 0.2s; }
+.anim-in-d3 { animation-delay: 0.3s; }
 
+/* Top Navigation */
 .topbar {
-  height: 64px;
+  height: 80px;
   border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
   position: sticky;
   top: 0;
-  background: color-mix(in srgb, var(--bg) 90%, transparent);
-  backdrop-filter: blur(18px) saturate(1.2);
-  z-index: 30;
-  transition: border-color 0.3s;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(24px) saturate(1.6);
+  z-index: 50;
+  transition: border-color 0.3s, background 0.3s;
 }
 .topbar .inner {
   display: flex;
@@ -66,148 +93,175 @@ button { font: inherit; cursor: pointer; }
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 750;
+  gap: 14px;
+  font-weight: 850;
   letter-spacing: -0.03em;
 }
 .logo {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   background: var(--accent);
   color: var(--ink);
-  font-size: 14px;
-  font-weight: 800;
-  transition: background 0.35s, transform 0.25s var(--ease-spring);
+  font-size: 16px;
+  font-weight: 900;
+  box-shadow: 0 0 30px var(--accent-glow);
+  transition: background 0.35s, transform 0.25s var(--ease-spring), box-shadow 0.35s;
 }
-.brand:hover .logo { transform: scale(1.06); }
+.brand:hover .logo { transform: scale(1.08) rotate(-5deg); box-shadow: 0 0 40px var(--accent); }
 .brand .sub {
   display: block;
-  font-size: 11px;
+  font-size: 11.5px;
   color: var(--muted);
-  font-weight: 500;
-  margin-top: 1px;
+  font-weight: 550;
+  margin-top: 2px;
 }
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 10px;
+  padding: 14px 26px;
   background: var(--accent);
   color: var(--ink);
-  font-weight: 700;
-  border-radius: 8px;
+  font-weight: 800;
+  border-radius: 12px;
   border: 0;
+  box-shadow: 0 8px 30px var(--accent-glow);
+  position: relative;
+  overflow: hidden;
   transition: filter 0.15s, transform 0.2s var(--ease-spring), background 0.35s, box-shadow 0.25s;
 }
-.btn:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
 }
-.btn:active { transform: translateY(0); }
+.btn:hover::after { transform: translateX(100%); }
+.btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px var(--accent-glow);
+}
+.btn:active { transform: translateY(-1px); }
 .btn-ghost {
-  background: transparent;
-  color: var(--muted);
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
   border: 1px solid var(--line);
-  font-weight: 600;
+  font-weight: 700;
   box-shadow: none;
 }
 .btn-ghost:hover {
-  color: var(--text);
   border-color: var(--accent);
-  filter: none;
-  box-shadow: none;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  box-shadow: 0 0 25px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
+/* Hero Section */
 .hero {
   display: grid;
-  grid-template-columns: 0.92fr 1.18fr;
+  grid-template-columns: 0.95fr 1.15fr;
   align-items: center;
-  gap: 40px;
-  padding: 48px 0 44px;
+  gap: 56px;
+  padding: 72px 0 64px;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 800;
+  letter-spacing: 0.2em;
+  font-weight: 900;
   color: var(--accent);
   transition: color 0.35s;
+  text-shadow: 0 0 20px var(--accent-glow);
 }
 h1 {
-  font-size: clamp(34px, 4.6vw, 50px);
+  font-size: clamp(42px, 5.2vw, 60px);
   line-height: 1.05;
   letter-spacing: -0.045em;
-  margin: 12px 0 14px;
-  font-weight: 800;
+  margin: 14px 0 20px;
+  font-weight: 900;
 }
-p { color: var(--muted); }
-.lead { font-size: 16px; max-width: 440px; line-height: 1.55; }
+h1 span.gradient-text {
+  background: linear-gradient(135deg, #fff 25%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.lead { font-size: 18px; max-width: 480px; line-height: 1.65; color: var(--muted); }
 .actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 22px;
+  margin-top: 30px;
 }
 .meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 16px;
-  margin-top: 18px;
-  font-size: 12px;
+  gap: 16px 24px;
+  margin-top: 28px;
+  font-size: 13px;
   color: var(--muted);
 }
-.meta-row span { display: inline-flex; align-items: center; gap: 6px; }
+.meta-row span { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
 .meta-row span::before {
   content: "";
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  opacity: 0.9;
-  transition: background 0.35s;
+  box-shadow: 0 0 12px var(--accent);
+  transition: background 0.35s, box-shadow 0.35s;
 }
 
+/* App Preview Frame with 3D tilt */
+.preview-container {
+  perspective: 1300px;
+}
 .preview {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
   background: var(--surface);
-  box-shadow: 0 28px 80px #0007, 0 0 0 1px #ffffff07 inset;
-  transition: box-shadow 0.4s, border-color 0.35s;
+  box-shadow: 0 40px 110px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  transition: box-shadow 0.4s, border-color 0.35s, transform 0.2s ease-out;
+  transform-style: preserve-3d;
 }
 .preview:hover {
-  box-shadow: 0 32px 90px #0008, 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent) inset;
+  box-shadow: 0 50px 130px rgba(0,0,0,0.95), 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent) inset;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
 }
 .preview-head {
-  height: 38px;
-  padding: 0 12px;
+  height: 46px;
+  padding: 0 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
-  font-size: 11.5px;
-  font-weight: 700;
-  background: color-mix(in srgb, var(--surface) 75%, #000);
+  font-size: 12.5px;
+  font-weight: 750;
+  background: color-mix(in srgb, var(--surface) 85%, #000);
 }
-.dots { display: flex; gap: 5px; }
-.dots i { width: 8px; height: 8px; border-radius: 50%; background: #596572; }
-.dots i:nth-child(1) { background: #ff6259; }
-.dots i:nth-child(2) { background: #ffc04d; }
-.dots i:nth-child(3) { background: #35c96f; }
+.dots { display: flex; gap: 7px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: #4a5868; }
+.dots i:nth-child(1) { background: #ff5f56; }
+.dots i:nth-child(2) { background: #ffbd2e; }
+.dots i:nth-child(3) { background: #27c93f; }
 
+/* Mock App Chrome */
 .app-chrome {
   display: flex;
   flex-direction: column;
-  height: 480px;
-  background: var(--libbg, #0b1016);
-  color: var(--libtext, #e8eef4);
+  height: 500px;
+  background: var(--libbg, #06090e);
+  color: var(--libtext, #f1f5f9);
   transition: background 0.4s, color 0.35s;
+  position: relative;
 }
 .app-panels {
   position: relative;
@@ -217,64 +271,66 @@ p { color: var(--muted); }
 }
 
 .app-header {
-  height: 44px;
+  height: 48px;
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  gap: 10px;
-  background: var(--libside, #0b1016);
-  border-bottom: 1px solid #ffffff0c;
+  padding: 0 14px;
+  gap: 12px;
+  background: var(--libside, #06090e);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   flex-shrink: 0;
   transition: background 0.4s;
 }
 .app-header .app-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
   background: var(--libaccent, var(--accent));
   display: grid;
   place-items: center;
-  color: #06131e;
-  font-size: 10px;
-  font-weight: 800;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 900;
   flex-shrink: 0;
-  transition: background 0.35s;
+  box-shadow: 0 0 14px var(--libaccent, var(--accent));
+  transition: background 0.35s, box-shadow 0.35s;
 }
 .app-header .brand-label {
-  font-size: 12.5px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
   letter-spacing: -0.02em;
   flex: 1;
 }
 .app-header .game-count {
-  font-size: 10px;
-  opacity: 0.5;
+  font-size: 11px;
+  opacity: 0.55;
   font-weight: 600;
 }
 
+/* Tabbar */
 .tabbar {
   display: flex;
   gap: 0;
-  padding: 0 8px;
-  background: var(--libside, #0b1016);
-  border-bottom: 1px solid #ffffff0c;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  padding: 0 10px;
+  background: var(--libside, #06090e);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   position: relative;
   flex-shrink: 0;
   transition: background 0.4s;
 }
 .tab {
-  padding: 11px 18px;
+  padding: 12px 20px;
   border: 0;
   background: transparent;
   color: inherit;
-  opacity: 0.45;
+  opacity: 0.5;
   position: relative;
   transition: opacity 0.2s, color 0.2s;
 }
-.tab:hover { opacity: 0.8; }
+.tab:hover { opacity: 0.85; }
 .tab.active {
   opacity: 1;
   color: var(--libaccent, var(--accent));
@@ -285,10 +341,12 @@ p { color: var(--muted); }
   height: 2px;
   background: var(--libaccent, var(--accent));
   border-radius: 2px 2px 0 0;
-  transition: left 0.3s var(--ease-out), width 0.3s var(--ease-out), background 0.35s;
+  box-shadow: 0 0 14px var(--libaccent, var(--accent));
+  transition: left 0.3s var(--ease-out), width 0.3s var(--ease-out), background 0.35s, box-shadow 0.35s;
   pointer-events: none;
 }
 
+/* Library Panel */
 .lib-body {
   display: flex;
   position: absolute;
@@ -296,11 +354,8 @@ p { color: var(--muted); }
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(8px) scale(0.985);
-  transition:
-    opacity 0.32s var(--ease-out),
-    transform 0.32s var(--ease-out),
-    visibility 0.32s;
+  transform: translateY(10px) scale(0.985);
+  transition: opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out), visibility 0.32s;
   z-index: 0;
 }
 .lib-body.active {
@@ -312,40 +367,40 @@ p { color: var(--muted); }
 }
 
 .sidebar-rail {
-  width: 32px;
+  width: 36px;
   flex-shrink: 0;
-  background: var(--libside, #0b1016);
-  border-right: 1px solid #ffffff0a;
+  background: var(--libside, #06090e);
+  border-right: 1px solid rgba(255,255,255,0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 8px;
+  padding-top: 10px;
   transition: background 0.4s;
 }
 .rail-btn {
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
   border: 0;
-  background: #ffffff10;
+  background: rgba(255,255,255,0.07);
   color: inherit;
-  font-size: 12px;
+  font-size: 13px;
   display: grid;
   place-items: center;
   opacity: 0.7;
   transition: background 0.15s, opacity 0.15s;
 }
-.rail-btn:hover { background: #ffffff1a; opacity: 1; }
+.rail-btn:hover { background: rgba(255,255,255,0.15); opacity: 1; }
 
 .sidebar {
-  width: 132px;
+  width: 140px;
   flex-shrink: 0;
-  background: var(--libside, #0b1016);
-  padding: 10px 7px;
-  border-right: 1px solid #ffffff0c;
+  background: var(--libside, #06090e);
+  padding: 12px 8px;
+  border-right: 1px solid rgba(255,255,255,0.06);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   transition: background 0.4s, width 0.3s var(--ease-out), opacity 0.25s, padding 0.3s;
   overflow: hidden;
 }
@@ -357,18 +412,18 @@ p { color: var(--muted); }
   border-right-width: 0;
 }
 .smallcap {
-  font-size: 8.5px;
-  letter-spacing: 0.12em;
+  font-size: 9px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  opacity: 0.42;
-  font-weight: 800;
-  padding: 3px 7px 7px;
+  opacity: 0.45;
+  font-weight: 900;
+  padding: 4px 8px 8px;
   white-space: nowrap;
 }
 .navitem {
-  font-size: 11px;
-  padding: 7px 8px;
-  border-radius: 5px;
+  font-size: 11.5px;
+  padding: 8px 10px;
+  border-radius: 6px;
   color: inherit;
   opacity: 0.7;
   text-align: left;
@@ -379,85 +434,94 @@ p { color: var(--muted); }
   white-space: nowrap;
   transition: background 0.15s, opacity 0.15s, color 0.15s;
 }
-.navitem:hover { background: #ffffff0c; opacity: 0.95; }
+.navitem:hover { background: rgba(255,255,255,0.07); opacity: 0.95; }
 .navitem.active {
-  background: var(--librow, #1c2633);
+  background: var(--librow, #121a26);
   color: var(--libaccent, var(--accent));
   opacity: 1;
+  font-weight: 700;
 }
 .collection {
   margin-top: auto;
-  border: 1px solid #ffffff16;
-  border-radius: 6px;
-  padding: 7px 8px;
-  font-size: 9.5px;
-  opacity: 0.7;
-  line-height: 1.3;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 10px;
+  opacity: 0.75;
+  line-height: 1.35;
   white-space: nowrap;
+  background: rgba(255,255,255,0.02);
 }
 .collection strong {
   display: block;
-  font-size: 15px;
-  margin-top: 2px;
+  font-size: 16px;
+  margin-top: 3px;
   opacity: 1;
   color: var(--libtext, #fff);
   transition: color 0.35s;
 }
 
+/* Scrollable Library Main Panel */
 .libmain {
   min-width: 0;
   flex: 1;
-  padding: 10px 12px 12px;
+  padding: 12px 14px 14px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   transition: opacity 0.25s;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
 }
+.libmain::-webkit-scrollbar { width: 6px; }
+.libmain::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 3px; }
 .libmain.dimmed { opacity: 0.55; }
 
 .libtoolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  gap: 8px;
+  margin-bottom: 12px;
+  gap: 10px;
 }
-.libtitle { font-size: 14px; font-weight: 750; letter-spacing: -0.02em; }
-.libhint { font-size: 9.5px; opacity: 0.48; margin-top: 1px; }
-.toolbar-right { display: flex; align-items: center; gap: 6px; }
+.libtitle { font-size: 15px; font-weight: 850; letter-spacing: -0.02em; }
+.libhint { font-size: 10px; opacity: 0.5; margin-top: 2px; }
+.toolbar-right { display: flex; align-items: center; gap: 8px; }
 .tool-btn {
-  font-size: 10px;
-  padding: 5px 9px;
-  border-radius: 5px;
-  border: 1px solid #ffffff18;
-  background: #ffffff0a;
+  font-size: 11px;
+  padding: 6px 11px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
   color: inherit;
-  opacity: 0.8;
-  font-weight: 600;
-  transition: background 0.15s, opacity 0.15s, border-color 0.15s;
+  opacity: 0.85;
+  font-weight: 700;
+  transition: background 0.15s, opacity 0.15s, border-color 0.15s, transform 0.15s;
 }
 .tool-btn:hover {
-  background: #ffffff14;
+  background: rgba(255,255,255,0.1);
   opacity: 1;
   border-color: var(--libaccent, var(--accent));
+  transform: translateY(-1px);
 }
 .search {
-  font-size: 10px;
-  border: 1px solid #ffffff20;
-  padding: 5px 8px;
-  border-radius: 5px;
-  color: #ffffff88;
+  font-size: 11px;
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.85);
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: #ffffff08;
+  gap: 6px;
+  background: rgba(255,255,255,0.03);
   transition: border-color 0.2s, background 0.2s;
 }
 .search:focus-within {
   border-color: var(--libaccent, var(--accent));
-  background: #ffffff0c;
+  background: rgba(255,255,255,0.07);
 }
 .search input {
-  width: 80px;
+  width: 90px;
   max-width: 100%;
   background: transparent;
   color: inherit;
@@ -465,21 +529,23 @@ p { color: var(--muted); }
   outline: 0;
   font: inherit;
 }
-.search input::placeholder { color: #ffffff60; }
+.search input::placeholder { color: rgba(255,255,255,0.4); }
 
+/* Featured Banner */
 .feature {
   position: relative;
-  height: 112px;
-  border-radius: 7px;
+  height: 122px;
+  border-radius: 8px;
   overflow: hidden;
   background: #121820;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
 }
 .feature:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px #0006;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.6);
 }
 .feature img {
   width: 100%;
@@ -488,12 +554,12 @@ p { color: var(--muted); }
   object-position: center 32%;
   transition: transform 0.5s var(--ease-out);
 }
-.feature:hover img { transform: scale(1.04); }
+.feature:hover img { transform: scale(1.05); }
 .feature::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #000e 0%, #0008 42%, transparent 75%);
+  background: linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 45%, transparent 80%);
   pointer-events: none;
 }
 .featurecopy {
@@ -504,46 +570,49 @@ p { color: var(--muted); }
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 12px 14px;
+  padding: 14px 18px;
 }
-.featurecopy .eyebrow { font-size: 8px; letter-spacing: 0.12em; }
-.featurecopy strong { font-size: 14px; color: white; margin: 2px 0; }
-.featurecopy small { color: #ffffffa8; font-size: 10px; }
+.featurecopy .eyebrow { font-size: 8.5px; letter-spacing: 0.14em; }
+.featurecopy strong { font-size: 15px; color: white; margin: 3px 0; font-weight: 850; }
+.featurecopy small { color: rgba(255,255,255,0.7); font-size: 10.5px; }
 .play {
-  margin-top: 6px;
-  background: #ffffff1c;
-  border-radius: 4px;
-  padding: 4px 9px;
+  margin-top: 8px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 5px;
+  padding: 5px 11px;
   color: white;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 750;
   transition: background 0.15s, transform 0.15s, color 0.15s;
 }
 .feature:hover .play {
   background: var(--libaccent, var(--accent));
-  color: #06131e;
+  color: var(--ink);
+  transform: scale(1.04);
 }
 
 .gameshead {
   display: flex;
   justify-content: space-between;
-  font-size: 10.5px;
-  font-weight: 700;
-  margin-bottom: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 8px;
 }
 
+/* Game Grid */
 .gamegrid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 8px 7px;
-  flex: 1;
+  gap: 10px 8px;
   align-content: start;
+  padding-bottom: 12px;
 }
 .game {
   min-width: 0;
   opacity: 0;
-  transform: translateY(14px) scale(0.96);
-  animation: cardRise 0.45s var(--ease-out) forwards;
+  transform: translateY(16px) scale(0.95);
+  animation: cardRise 0.5s var(--ease-out) forwards;
+  cursor: pointer;
 }
 @keyframes cardRise {
   to { opacity: 1; transform: none; }
@@ -552,78 +621,81 @@ p { color: var(--muted); }
   aspect-ratio: 2 / 3;
   overflow: hidden;
   background: linear-gradient(145deg, #1e2a36, #0e1319);
-  border: 1px solid #ffffff12;
-  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
   position: relative;
   transition: transform 0.22s var(--ease-out), border-color 0.2s, box-shadow 0.25s;
   will-change: transform;
 }
 .game:hover .cover {
-  transform: translateY(-4px) scale(1.03);
+  transform: translateY(-5px) scale(1.04);
   border-color: var(--libaccent, var(--accent));
-  box-shadow:
-    0 10px 28px #0007,
-    0 0 18px color-mix(in srgb, var(--libaccent, var(--accent)) 40%, transparent);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.7), 0 0 20px color-mix(in srgb, var(--libaccent, var(--accent)) 45%, transparent);
 }
 .cover img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform 0.35s var(--ease-out);
+  transition: transform 0.4s var(--ease-out);
 }
-.game:hover .cover img { transform: scale(1.04); }
+.game:hover .cover img { transform: scale(1.06); }
 .cover .fav-badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 16px;
-  height: 16px;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: #000a;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
   display: grid;
   place-items: center;
-  font-size: 9px;
+  font-size: 10px;
   color: #ffc04d;
-  opacity: 0.9;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 .game b {
   display: block;
-  font-size: 9.5px;
+  font-size: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 5px;
+  margin-top: 6px;
+  font-weight: 700;
   transition: color 0.2s;
 }
 .game:hover b { color: var(--libaccent, var(--accent)); }
 .game small {
-  font-size: 8.5px;
-  opacity: 0.48;
+  font-size: 9px;
+  opacity: 0.5;
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* Store Panel & Settings Panel */
 .store-panel, .settings-panel {
   display: flex;
   position: absolute;
   inset: 0;
-  padding: 12px;
+  padding: 14px;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(8px) scale(0.985);
-  transition:
-    opacity 0.32s var(--ease-out),
-    transform 0.32s var(--ease-out),
-    visibility 0.32s;
+  transform: translateY(10px) scale(0.985);
+  transition: opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out), visibility 0.32s;
   z-index: 0;
   box-sizing: border-box;
 }
+.store-panel::-webkit-scrollbar, .settings-panel::-webkit-scrollbar { width: 6px; }
+.store-panel::-webkit-scrollbar-thumb, .settings-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
 .store-panel.active, .settings-panel.active {
   opacity: 1;
   visibility: visible;
@@ -635,42 +707,42 @@ p { color: var(--muted); }
 .store-toolbar {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 .store-toolbar button {
-  font-size: 11px;
-  padding: 5px 9px;
-  border-radius: 5px;
-  border: 1px solid #ffffff16;
-  background: #ffffff0a;
+  font-size: 11.5px;
+  padding: 6px 11px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
   color: inherit;
-  opacity: 0.85;
+  opacity: 0.9;
   transition: background 0.15s, opacity 0.15s;
 }
-.store-toolbar button:hover { background: #ffffff16; opacity: 1; }
+.store-toolbar button:hover { background: rgba(255,255,255,0.12); opacity: 1; }
 .urlbar {
   flex: 1;
-  min-width: 100px;
-  font-size: 11px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #ffffff16;
-  background: #ffffff08;
-  color: #ffffffbb;
+  min-width: 120px;
+  font-size: 11.5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.85);
 }
 .store-viewport {
   flex: 1;
-  border-radius: 8px;
-  border: 1px solid #ffffff10;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
   background:
-    radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--libaccent, var(--accent)) 12%, transparent), transparent 55%),
+    radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--libaccent, var(--accent)) 15%, transparent), transparent 60%),
     linear-gradient(165deg, #121820, #0a0e14);
   display: grid;
   place-items: center;
   text-align: center;
-  padding: 28px;
-  min-height: 240px;
+  padding: 32px;
+  min-height: 260px;
   position: relative;
   overflow: hidden;
 }
@@ -679,225 +751,360 @@ p { color: var(--muted); }
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(#ffffff04 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff04 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.5;
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.6;
   pointer-events: none;
 }
-.store-viewport > div { position: relative; z-index: 1; }
+.store-viewport > div { position: relative; z-index: 1; max-width: 380px; }
 .store-viewport .store-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--libaccent, var(--accent)) 20%, transparent);
-  border: 1px solid color-mix(in srgb, var(--libaccent, var(--accent)) 40%, transparent);
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--libaccent, var(--accent)) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--libaccent, var(--accent)) 45%, transparent);
   display: grid;
   place-items: center;
-  margin: 0 auto 14px;
-  font-size: 20px;
+  margin: 0 auto 16px;
+  font-size: 22px;
   color: var(--libaccent, var(--accent));
-  transition: background 0.35s, border-color 0.35s, color 0.35s;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--libaccent, var(--accent)) 25%, transparent);
+  transition: background 0.35s, border-color 0.35s, color 0.35s, box-shadow 0.35s;
 }
-.store-viewport strong { display: block; font-size: 14px; margin-bottom: 6px; }
+.store-viewport strong { display: block; font-size: 15px; margin-bottom: 8px; font-weight: 850; }
 .store-viewport p {
-  font-size: 12px;
-  max-width: 280px;
-  margin: 0 auto;
-  opacity: 0.65;
+  font-size: 12.5px;
+  margin: 0 0 16px;
+  opacity: 0.7;
   color: inherit;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
+.store-download-btn {
+  background: var(--libaccent, var(--accent));
+  color: var(--ink);
+  border: 0;
+  padding: 8px 16px;
+  font-size: 11.5px;
+  font-weight: 800;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px var(--libaccent, var(--accent));
+  transition: transform 0.2s, filter 0.2s;
+}
+.store-download-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+/* Settings Panel */
 .settings-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 9px;
+  gap: 10px;
 }
 .setting-card {
-  border: 1px solid #ffffff12;
-  border-radius: 8px;
-  padding: 12px;
-  background: #ffffff06;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px;
+  background: rgba(255,255,255,0.03);
   transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
 .setting-card:hover {
   border-color: color-mix(in srgb, var(--libaccent, var(--accent)) 50%, transparent);
-  background: #ffffff0a;
+  background: rgba(255,255,255,0.06);
   transform: translateY(-2px);
 }
-.setting-card h4 { margin: 0 0 4px; font-size: 12px; font-weight: 700; }
+.setting-card h4 { margin: 0 0 5px; font-size: 12.5px; font-weight: 800; }
 .setting-card p {
   margin: 0;
-  font-size: 11px;
-  opacity: 0.6;
+  font-size: 11.5px;
+  opacity: 0.65;
   color: inherit;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 .setting-card .tag {
   display: inline-block;
-  margin-top: 8px;
-  font-size: 9.5px;
-  padding: 3px 7px;
-  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 5px;
   background: var(--libaccent, var(--accent));
-  color: #06131e;
-  font-weight: 700;
+  color: var(--ink);
+  font-weight: 800;
   transition: background 0.35s;
 }
 
+/* Themes Bar */
 .themes {
   border-top: 1px solid var(--line);
-  padding: 11px 13px;
-  background: color-mix(in srgb, var(--surface) 88%, #000);
-  transition: border-color 0.35s;
+  padding: 14px 18px;
+  background: color-mix(in srgb, var(--surface) 85%, #000);
+  transition: border-color 0.35s, background 0.35s;
 }
 .themebar {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
-  font-weight: 700;
-  margin-bottom: 8px;
+  font-size: 11.5px;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
-.themebuttons { display: flex; flex-wrap: wrap; gap: 5px; }
+.themebuttons { display: flex; flex-wrap: wrap; gap: 6px; }
 .themebuttons button {
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
-  padding: 5px 9px;
-  border-radius: 6px;
-  font-size: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
   transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s;
 }
-.themebuttons button:hover { color: var(--text); transform: translateY(-1px); }
+.themebuttons button:hover { color: var(--text); transform: translateY(-1px); background: rgba(255,255,255,0.04); }
 .themebuttons button[aria-pressed="true"] {
   background: var(--raised);
   color: var(--text);
   border-color: var(--accent);
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 .swatch {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  margin-right: 5px;
+  margin-right: 6px;
   vertical-align: middle;
-  box-shadow: 0 0 0 1px #ffffff20;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.25);
 }
 
+/* Features Grid with Spark Card Glows */
 .features {
   border-block: 1px solid var(--line);
-  background: #0c1219;
-  padding: 42px 0;
+  background: linear-gradient(180deg, #06090e 0%, #030508 100%);
+  padding: 72px 0;
+  position: relative;
 }
 .featuregrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 28px;
 }
 .featuregrid article {
-  padding: 4px 0;
-  transition: transform 0.25s var(--ease-out);
+  padding: 28px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid var(--line);
+  transition: transform 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
 }
-.featuregrid article:hover { transform: translateY(-3px); }
+.featuregrid article::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.featuregrid article:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 30px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.featuregrid article:hover::before { opacity: 1; }
 .featuregrid h3 {
-  font-size: 14.5px;
-  margin: 0 0 6px;
+  font-size: 17px;
+  margin: 0 0 8px;
   letter-spacing: -0.02em;
+  font-weight: 850;
 }
-.featuregrid p { font-size: 13px; margin: 0; line-height: 1.5; }
+.featuregrid p { font-size: 14px; margin: 0; line-height: 1.6; color: var(--muted); }
 .iconbox {
-  width: 34px;
-  height: 34px;
-  border-radius: 7px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   background: var(--raised);
   display: grid;
   place-items: center;
   color: var(--accent);
-  margin-bottom: 11px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: background 0.35s, color 0.35s, transform 0.25s var(--ease-spring);
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 0 25px var(--accent-glow);
+  transition: background 0.35s, color 0.35s, transform 0.25s var(--ease-spring), box-shadow 0.35s;
 }
-.featuregrid article:hover .iconbox { transform: scale(1.08); }
+.featuregrid article:hover .iconbox {
+  transform: scale(1.12) rotate(4deg);
+  box-shadow: 0 0 35px var(--accent);
+}
 
-.how { padding: 46px 0 18px; }
+/* How to use */
+.how { padding: 72px 0 32px; }
 .how h2, .end h2 {
   letter-spacing: -0.035em;
-  font-size: 23px;
-  margin: 0 0 16px;
+  font-size: 32px;
+  margin: 0 0 24px;
+  font-weight: 900;
 }
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 11px;
+  gap: 20px;
 }
 .step {
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 16px;
+  border-radius: 16px;
+  padding: 28px;
   background: var(--surface);
   transition: border-color 0.25s, transform 0.25s var(--ease-out), box-shadow 0.25s;
+  position: relative;
 }
 .step:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px #0005;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.7), 0 0 25px var(--accent-glow);
 }
 .step em {
   font-style: normal;
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 950;
   color: var(--accent);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   transition: color 0.35s;
 }
-.step h3 { font-size: 14px; margin: 6px 0 4px; }
-.step p { font-size: 12.5px; margin: 0; line-height: 1.45; }
+.step h3 { font-size: 16.5px; margin: 8px 0 8px; font-weight: 850; }
+.step p { font-size: 14px; margin: 0; line-height: 1.6; color: var(--muted); }
 
-.end { text-align: center; padding: 34px 0 56px; }
-.end p { max-width: 500px; margin: 0 auto 20px; font-size: 14px; }
+/* End section with spark background glow */
+.end { 
+  text-align: center; 
+  padding: 70px 0 90px; 
+  position: relative;
+}
+.end::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 350px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 15%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.end p { max-width: 560px; margin: 0 auto 30px; font-size: 16.5px; color: var(--muted); }
 
+/* Footer */
 footer {
   border-top: 1px solid var(--line);
-  padding: 16px 0;
+  padding: 28px 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
+  background: #020406;
+  position: relative;
+  z-index: 1;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Game Details Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
 }
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal {
+  width: min(480px, calc(100% - 32px));
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--line));
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9), 0 0 50px var(--accent-glow);
+  transform: scale(0.95) translateY(15px);
+  transition: transform 0.3s var(--ease-spring);
+}
+.modal-overlay.open .modal {
+  transform: scale(1) translateY(0);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.modal-title { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; margin: 0; }
+.modal-close {
+  background: rgba(255,255,255,0.08);
+  border: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text);
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.2); transform: rotate(90deg); }
+.modal-body p { font-size: 14px; color: var(--muted); margin: 0 0 20px; line-height: 1.6; }
+.modal-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.modal-stat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.modal-stat strong { display: block; font-size: 16px; color: var(--text); margin-top: 3px; font-weight: 800; }
+.modal-actions { display: flex; gap: 12px; }
 
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 26px; padding-top: 32px; }
-  .featuregrid { gap: 14px; }
-  .sidebar { width: 118px; }
-  .sidebar-rail { display: none; }
+/* Toast Notifications */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1100;
+  pointer-events: none;
 }
-@media (max-width: 600px) {
-  .wrap { width: min(100% - 24px, 1120px); }
-  .topbar { height: 56px; }
-  .brand { font-size: 13px; }
-  .brand .sub { font-size: 10px; }
-  .topbar .btn { padding: 8px 11px; font-size: 12px; }
-  .hero { padding-top: 24px; padding-bottom: 24px; gap: 20px; }
-  h1 { font-size: 32px; }
-  .lead { font-size: 14.5px; }
-  .sidebar { display: none; }
-  .libmain { padding: 9px; }
-  .gamegrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-  .game:nth-child(n+4) { display: none; }
-  .feature { height: 96px; }
-  .featuregrid, .steps, .settings-grid { grid-template-columns: 1fr; gap: 12px; }
-  .features { padding: 26px 0; }
-  .how { padding: 26px 0 10px; }
-  .tab { padding: 10px 12px; font-size: 10px; }
-  .app-chrome { height: 400px; }
-  .app-header { height: 38px; }
+.toast {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, var(--line));
+  color: var(--text);
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  font-weight: 750;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.75), 0 0 25px var(--accent-glow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+  animation: toastIn 0.35s var(--ease-spring) forwards, toastOut 0.3s var(--ease-out) 2.7s forwards;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes toastOut {
+  to { opacity: 0; transform: translateY(10px) scale(0.95); }
 }
 
 /* Confetti canvas */
@@ -909,6 +1116,49 @@ footer {
   pointer-events: none;
   z-index: 9999;
 }
+
+/* Sparkle click particles */
+.sparkle-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  box-shadow: 0 0 12px var(--accent);
+  animation: sparkleFly 0.6s ease-out forwards;
+}
+@keyframes sparkleFly {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }
+  .featuregrid, .steps { grid-template-columns: 1fr; gap: 18px; }
+  .sidebar { width: 124px; }
+  .sidebar-rail { display: none; }
+}
+@media (max-width: 600px) {
+  .wrap { width: min(100% - 24px, 1160px); }
+  .topbar { height: 70px; }
+  .brand { font-size: 14.5px; }
+  .brand .sub { font-size: 11px; }
+  .topbar .btn { padding: 10px 16px; font-size: 13px; }
+  .hero { padding-top: 36px; padding-bottom: 36px; gap: 28px; }
+  h1 { font-size: 38px; }
+  .lead { font-size: 16px; }
+  .sidebar { display: none; }
+  .libmain { padding: 10px; }
+  .gamegrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .feature { height: 104px; }
+  .features { padding: 48px 0; }
+  .how { padding: 48px 0 20px; }
+  .tab { padding: 10px 14px; font-size: 11px; }
+  .app-chrome { height: 420px; }
+}
 </style>
 </head>
 <body>
@@ -916,193 +1166,233 @@ footer {
   <div class="wrap inner">
     <a class="brand" href="#top">
       <span class="logo">▶</span>
-      <span>SteamRIP Game Hub<span class="sub">Windows library launcher</span></span>
+      <span>SteamRIP Game Hub<span class="sub">Next-Gen Windows library launcher</span></span>
     </a>
-    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v2.0/SteamRIPGameHub.zip">↓ Download</a>
+    <!-- DOWNLOAD BUTTON #1 (Top Nav) -->
+    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download Launcher</a>
   </div>
 </header>
 
 <main id="top">
   <section class="hero wrap">
     <div class="anim-in">
-      <div class="eyebrow">Store · Library · Settings</div>
-      <h1>Your games.<br>One library.<br>Ready to play.</h1>
-      <p class="lead">SteamRIP Game Hub is a Windows app built in Python. Browse SteamRIP in the Store tab, download a game, let it unpack with 7-Zip, then keep everything in a themed library with cover art, pinned games, and playtime.</p>
+      <div class="eyebrow">Store · Library · 7-Zip Extraction</div>
+      <h1>Your games.<br><span class="gradient-text">One immaculate library.</span><br>Ready instantly.</h1>
+      <p class="lead">SteamRIP Game Hub is a state-of-the-art Windows app built in Python. Browse SteamRIP inside the integrated store, download games, watch them auto-extract via 7-Zip, and manage your custom library with covers, pinned badges, and playtime tracking.</p>
+      
+      <!-- Actions with exactly 2 buttons (Secondary is Theme Explorer) -->
       <div class="actions">
-        <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v2.0/SteamRIPGameHub.zip">↓ Download the zip</a>
-        <a class="btn btn-ghost" href="#themes">Preview themes</a>
+        <a class="btn btn-ghost" href="#themes">Explore 6 Themes</a>
+        <a class="btn btn-ghost" href="#features">See Features</a>
       </div>
+
       <div class="meta-row">
         <span>Python · Windows</span>
-        <span>Built-in SteamRIP browser</span>
-        <span>7-Zip extraction</span>
-        <span>Six themes</span>
+        <span>Built-in SteamRIP Browser</span>
+        <span>Automatic 7-Zip Unpacker</span>
+        <span>Six Theme Presets</span>
       </div>
     </div>
 
-    <div class="preview anim-in anim-in-d2" id="preview">
-      <div class="preview-head">
-        <span>SteamRIP Game Hub <span style="font-weight:400;color:var(--muted)">/ Live preview</span></span>
-        <span class="dots"><i></i><i></i><i></i></span>
-      </div>
-
-      <div class="app-chrome" id="appChrome">
-        <div class="app-header">
-          <span class="app-icon">▶</span>
-          <span class="brand-label">SteamRIP Game Hub</span>
-          <span class="game-count" id="headerCount">10 games</span>
+    <div class="preview-container anim-in anim-in-d2">
+      <div class="preview" id="previewCard">
+        <div class="preview-head">
+          <span>SteamRIP Game Hub <span style="font-weight:400;color:var(--muted)">/ Live Interactive Preview</span></span>
+          <span class="dots"><i></i><i></i><i></i></span>
         </div>
 
-        <div class="tabbar" role="tablist" id="tabbar">
-          <button class="tab" data-tab="store" type="button" role="tab">STORE</button>
-          <button class="tab active" data-tab="library" type="button" role="tab">LIBRARY</button>
-          <button class="tab" data-tab="settings" type="button" role="tab">SETTINGS</button>
-          <div class="tab-indicator" id="tabIndicator"></div>
-        </div>
-
-        <div class="app-panels">
-        <div class="lib-body active" id="panelLibrary">
-          <div class="sidebar-rail">
-            <button class="rail-btn" id="sidebarToggle" type="button" title="Toggle sidebar">☰</button>
+        <div class="app-chrome" id="appChrome">
+          <div class="app-header">
+            <span class="app-icon">▶</span>
+            <span class="brand-label">SteamRIP Game Hub</span>
+            <span class="game-count" id="headerCount">20 games</span>
           </div>
-          <aside class="sidebar" id="libSidebar">
-            <div class="smallcap">Your library</div>
-            <button class="navitem active" data-view="all" type="button">▦ &nbsp; All games</button>
-            <button class="navitem" data-view="favorites" type="button">☆ &nbsp; Pinned</button>
-            <button class="navitem" data-view="recent" type="button">◷ &nbsp; Recent</button>
-            <div class="collection">COLLECTION<br><strong id="collectionCount">10</strong> games</div>
-          </aside>
-          <div class="libmain" id="libMain">
-            <div class="libtoolbar">
-              <div>
-                <div class="libtitle" id="libTitle">All games</div>
-                <div class="libhint">Your collection, at a glance</div>
+
+          <div class="tabbar" role="tablist" id="tabbar">
+            <button class="tab" data-tab="store" type="button" role="tab">STORE</button>
+            <button class="tab active" data-tab="library" type="button" role="tab">LIBRARY</button>
+            <button class="tab" data-tab="settings" type="button" role="tab">SETTINGS</button>
+            <div class="tab-indicator" id="tabIndicator"></div>
+          </div>
+
+          <div class="app-panels">
+            <!-- Library Panel (Scrollable) -->
+            <div class="lib-body active" id="panelLibrary">
+              <div class="sidebar-rail">
+                <button class="rail-btn" id="sidebarToggle" type="button" title="Toggle sidebar">☰</button>
               </div>
-              <div class="toolbar-right">
-                <button class="tool-btn" type="button" title="Fetch missing Steam covers">Covers</button>
-                <span class="search">⌕ <input id="gameSearch" aria-label="Search games" placeholder="Search" /></span>
+              <aside class="sidebar" id="libSidebar">
+                <div class="smallcap">Your library</div>
+                <button class="navitem active" data-view="all" type="button">▦ &nbsp; All games</button>
+                <button class="navitem" data-view="favorites" type="button">☆ &nbsp; Pinned</button>
+                <button class="navitem" data-view="recent" type="button">◷ &nbsp; Recent</button>
+                <div class="collection">COLLECTION<br><strong id="collectionCount">20</strong> games</div>
+              </aside>
+              <div class="libmain" id="libMain">
+                <div class="libtoolbar">
+                  <div>
+                    <div class="libtitle" id="libTitle">All games</div>
+                    <div class="libhint">Click any game card for details</div>
+                  </div>
+                  <div class="toolbar-right">
+                    <button class="tool-btn" type="button" id="fetchCoversBtn" title="Fetch missing Steam covers">Covers</button>
+                    <span class="search">⌕ <input id="gameSearch" aria-label="Search games" placeholder="Search" /></span>
+                  </div>
+                </div>
+                <div class="feature">
+                  <img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="Red Dead Redemption 2 artwork" width="600" height="122">
+                  <div class="featurecopy">
+                    <span class="eyebrow">Continue playing</span>
+                    <strong>Red Dead Redemption 2</strong>
+                    <small>42.1 hours played</small>
+                    <span class="play">▶ Play Game</span>
+                  </div>
+                </div>
+                <div class="gameshead">
+                  <span id="gamesHeading">Your games</span>
+                  <span id="gamesCount" style="opacity:.5;font-weight:400"></span>
+                </div>
+                <div class="gamegrid" id="gamegrid"></div>
               </div>
             </div>
-            <div class="feature">
-              <img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="Red Dead Redemption 2 artwork" width="600" height="112">
-              <div class="featurecopy">
-                <span class="eyebrow">Continue playing</span>
-                <strong>Red Dead Redemption 2</strong>
-                <small>42.1 hours played</small>
-                <span class="play">▶ Play</span>
+
+            <!-- Store Panel -->
+            <div class="store-panel" id="panelStore">
+              <div class="store-toolbar">
+                <button type="button" title="Back">←</button>
+                <button type="button" title="Forward">→</button>
+                <button type="button">SteamRIP</button>
+                <span class="urlbar">https://steamrip.com</span>
+                <button type="button" title="Open externally">↗</button>
+              </div>
+              <div class="store-viewport">
+                <div>
+                  <div class="store-icon">◉</div>
+                  <strong>Built-in SteamRIP Browser</strong>
+                  <p>Search and download titles directly inside the app launcher. Downloads trigger automated 7-Zip unpacking.</p>
+                  <button type="button" class="store-download-btn" id="simulateDownloadBtn">↓ Download & Extract Demo</button>
+                </div>
               </div>
             </div>
-            <div class="gameshead">
-              <span id="gamesHeading">Your games</span>
-              <span id="gamesCount" style="opacity:.45;font-weight:400"></span>
+
+            <!-- Settings Panel -->
+            <div class="settings-panel" id="panelSettings">
+              <div class="settings-grid">
+                <div class="setting-card">
+                  <h4>7-Zip executable</h4>
+                  <p>Point the app at 7z.exe so archives unpack seamlessly after download.</p>
+                  <span class="tag">Required for extract</span>
+                </div>
+                <div class="setting-card">
+                  <h4>Theme Engine</h4>
+                  <p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, or Forest.</p>
+                  <span class="tag">6 presets</span>
+                </div>
+                <div class="setting-card">
+                  <h4>Library options</h4>
+                  <p>Show playtime, pinned badges, card tilt, and custom sorting preferences.</p>
+                  <span class="tag">Fully Configurable</span>
+                </div>
+                <div class="setting-card">
+                  <h4>Cover Art Sync</h4>
+                  <p>Fetch Steam library covers for local games missing artwork with one click.</p>
+                  <span class="tag">One-click sync</span>
+                </div>
+              </div>
             </div>
-            <div class="gamegrid" id="gamegrid"></div>
-          </div>
+          </div><!-- /.app-panels -->
         </div>
 
-        <div class="store-panel" id="panelStore">
-          <div class="store-toolbar">
-            <button type="button" title="Back">←</button>
-            <button type="button" title="Forward">→</button>
-            <button type="button">SteamRIP</button>
-            <span class="urlbar">https://steamrip.com</span>
-            <button type="button" title="Open externally">↗</button>
+        <div class="themes" id="themes">
+          <div class="themebar">
+            <span>Launcher Theme Preset</span>
+            <span id="themeName" style="color:var(--muted)">Big Picture</span>
           </div>
-          <div class="store-viewport">
-            <div>
-              <div class="store-icon">◉</div>
-              <strong>Built-in SteamRIP browser</strong>
-              <p>Search and download from steamrip.com inside the app. Downloads are captured and can be extracted with 7-Zip automatically.</p>
-            </div>
-          </div>
+          <div class="themebuttons" id="themebuttons"></div>
+          <p id="themeBlurb" style="font-size:11px;margin:8px 0 0;color:var(--muted)">Deep navy, vibrant blue accents, and pristine frosted surfaces.</p>
         </div>
-
-        <div class="settings-panel" id="panelSettings">
-          <div class="settings-grid">
-            <div class="setting-card">
-              <h4>7-Zip executable</h4>
-              <p>Point the app at 7z.exe so archives unpack after download.</p>
-              <span class="tag">Required for extract</span>
-            </div>
-            <div class="setting-card">
-              <h4>Theme</h4>
-              <p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, Forest — or save your own.</p>
-              <span class="tag">6 presets</span>
-            </div>
-            <div class="setting-card">
-              <h4>Library options</h4>
-              <p>Show playtime, pinned badges, cover glow, card tilt, and sort by name, recent, or playtime.</p>
-              <span class="tag">Toggles</span>
-            </div>
-            <div class="setting-card">
-              <h4>Cover art</h4>
-              <p>Fetch Steam library covers for local games that are missing artwork.</p>
-              <span class="tag">One-click</span>
-            </div>
-          </div>
-        </div>
-        </div><!-- /.app-panels -->
-      </div>
-
-      <div class="themes" id="themes">
-        <div class="themebar">
-          <span>Choose a look</span>
-          <span id="themeName" style="color:var(--muted)">Big Picture</span>
-        </div>
-        <div class="themebuttons" id="themebuttons"></div>
-        <p id="themeBlurb" style="font-size:10px;margin:8px 0 0;color:var(--muted)">Deep navy, bright blue, and restrained surfaces.</p>
       </div>
     </div>
   </section>
 
-  <section class="features">
+  <section class="features" id="features">
     <div class="wrap featuregrid">
       <article class="anim-in anim-in-d1">
         <div class="iconbox">▦</div>
         <h3>Store + Library + Settings</h3>
-        <p>Three tabs mirror the real app. Browse SteamRIP, manage downloads, then organize and launch from your library.</p>
+        <p>Three unified tabs mirror a professional client. Browse SteamRIP, manage active downloads, and launch your library games instantly.</p>
       </article>
       <article class="anim-in anim-in-d2">
         <div class="iconbox">◉</div>
-        <h3>Six built-in themes</h3>
-        <p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, and Forest — the same presets shipped in the launcher.</p>
+        <h3>Six Built-in Themes</h3>
+        <p>Big Picture, Steam Classic, Midnight Purple, Cyber Neon, Ember, and Forest presets tailor your launcher experience.</p>
       </article>
       <article class="anim-in anim-in-d3">
         <div class="iconbox">✳</div>
-        <h3>Covers, playtime, pinned</h3>
-        <p>Add local folders or executables, fetch Steam covers, track playtime, pin favorites, and sort the way you want.</p>
+        <h3>Covers & Playtime Tracking</h3>
+        <p>Manage local folders, sync Steam artwork, track session hours, pin favorites, and sort your entire library effortlessly.</p>
       </article>
     </div>
   </section>
 
   <section class="how wrap">
-    <h2>How to use it</h2>
+    <h2>How to get started</h2>
     <div class="steps">
       <article class="step">
         <em>01</em>
         <h3>Download & extract</h3>
-        <p>Get the Windows package, extract it, and run the app. No installer required.</p>
+        <p>Grab the lightweight Windows package, unpack it, and launch the application instantly without messy installers.</p>
       </article>
       <article class="step">
         <em>02</em>
-        <h3>Point it at your games</h3>
-        <p>Use the Store tab to browse and download, set the 7-Zip path in Settings, or add a local game folder and fetch cover art.</p>
+        <h3>Point to your games & 7-Zip</h3>
+        <p>Use the built-in browser to download from SteamRIP, configure your 7z.exe path, and sync local covers.</p>
       </article>
       <article class="step">
         <em>03</em>
-        <h3>Tune the look & play</h3>
-        <p>Pick a theme, organize pinned and recent games, then launch supported titles from your library.</p>
+        <h3>Customize & play</h3>
+        <p>Select your favorite theme preset, organize pinned collections, and jump right into your gameplay.</p>
       </article>
     </div>
   </section>
 
   <section class="end wrap">
-    <h2>Ready when you are</h2>
-    <p>Built-in SteamRIP browser, download handling, 7-Zip extraction, and a full library for games already on your PC. Set your 7-Zip path in Settings before extracting archives.</p>
-    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v2.0/SteamRIPGameHub.zip">↓ Download SteamRIP Game Hub</a>
+    <h2>Ready to transform your library?</h2>
+    <p>Enjoy an integrated SteamRIP browser, automated 7-Zip extraction, and a gorgeous themed launcher for all your Windows games.</p>
+    <!-- DOWNLOAD BUTTON #2 (Bottom Call-to-Action) -->
+    <a class="btn download-btn" href="https://github.com/Darkgaemer/steamrip-launcher/releases/download/v1.0/SteamRIPGameHub.zip">↓ Download SteamRIP Game Hub</a>
   </section>
 </main>
+
+<!-- Game Details Modal -->
+<div class="modal-overlay" id="gameModalOverlay">
+  <div class="modal" id="gameModal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalGameTitle">Game Title</h3>
+      <button class="modal-close" id="modalCloseBtn" type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <p id="modalGameGenre">Genre description</p>
+      <div class="modal-stats">
+        <div class="modal-stat">
+          <span>Playtime</span>
+          <strong id="modalGameHours">0.0 hrs</strong>
+        </div>
+        <div class="modal-stat">
+          <span>Steam App ID</span>
+          <strong id="modalGameId">000000</strong>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="modalLaunchBtn" type="button" style="flex:1;">▶ Launch Game</button>
+        <button class="btn btn-ghost" id="modalPinBtn" type="button">☆ Pin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+<div id="toast-container"></div>
 
 <footer>
   <div class="wrap">SteamRIP Game Hub · Windows game library launcher</div>
@@ -1110,45 +1400,64 @@ footer {
 
 <script>
 const catalog = [
-  { title: 'Red Dead Redemption 2', id: '1174180', hours: '42.1 hrs', genre: 'Adventure' },
-  { title: 'Cyberpunk 2077', id: '1091500', hours: '18.4 hrs', genre: 'RPG' },
+  { title: 'Red Dead Redemption 2', id: '1174180', hours: '42.1 hrs', genre: 'Adventure / Open World' },
+  { title: 'Cyberpunk 2077', id: '1091500', hours: '18.4 hrs', genre: 'Sci-Fi RPG' },
   { title: 'ELDEN RING', id: '1245620', hours: '61.0 hrs', genre: 'Action RPG' },
-  { title: "Baldur's Gate 3", id: '1086940', hours: '27.8 hrs', genre: 'RPG' },
+  { title: "Baldur's Gate 3", id: '1086940', hours: '27.8 hrs', genre: 'Fantasy RPG' },
   { title: 'Hollow Knight: Silksong', id: '1030300', hours: '9.2 hrs', genre: 'Metroidvania' },
-  { title: 'Resident Evil 4', id: '2050650', hours: '3.6 hrs', genre: 'Horror' },
-  { title: 'Hogwarts Legacy', id: '990080', hours: '14.2 hrs', genre: 'Adventure' },
-  { title: 'Forza Horizon 5', id: '1551360', hours: '31.7 hrs', genre: 'Racing' },
-  { title: 'The Witcher 3: Wild Hunt', id: '292030', hours: '52.6 hrs', genre: 'RPG' },
-  { title: 'Dying Light 2', id: '534380', hours: '11.3 hrs', genre: 'Action' },
+  { title: 'Resident Evil 4', id: '2050650', hours: '3.6 hrs', genre: 'Survival Horror' },
+  { title: 'Hogwarts Legacy', id: '990080', hours: '14.2 hrs', genre: 'Action Adventure' },
+  { title: 'Forza Horizon 5', id: '1551360', hours: '31.7 hrs', genre: 'Open World Racing' },
+  { title: 'The Witcher 3: Wild Hunt', id: '292030', hours: '52.6 hrs', genre: 'Action RPG' },
+  { title: 'Dying Light 2', id: '534380', hours: '11.3 hrs', genre: 'Zombie Action' },
   { title: 'Lethal Company', id: '1966720', hours: '8.5 hrs', genre: 'Co-op Horror' },
-  { title: 'SILENT HILL 2', id: '2124490', hours: '6.1 hrs', genre: 'Horror' },
-  { title: 'Dead Space', id: '1693980', hours: '10.4 hrs', genre: 'Horror' },
-  { title: 'DOOM Eternal', id: '782330', hours: '22.0 hrs', genre: 'FPS' },
-  { title: 'Portal 2', id: '620', hours: '12.8 hrs', genre: 'Puzzle' },
+  { title: 'SILENT HILL 2', id: '2124490', hours: '6.1 hrs', genre: 'Psychological Horror' },
+  { title: 'Dead Space', id: '1693980', hours: '10.4 hrs', genre: 'Sci-Fi Horror' },
+  { title: 'DOOM Eternal', id: '782330', hours: '22.0 hrs', genre: 'Fast-paced FPS' },
+  { title: 'Portal 2', id: '620', hours: '12.8 hrs', genre: 'Puzzle Platformer' },
   { title: 'Left 4 Dead 2', id: '550', hours: '19.6 hrs', genre: 'Co-op FPS' },
-  { title: 'Grand Theft Auto V', id: '271590', hours: '35.2 hrs', genre: 'Open World' },
-  { title: 'The Last of Us Part I', id: '1888930', hours: '13.1 hrs', genre: 'Adventure' },
+  { title: 'Grand Theft Auto V', id: '271590', hours: '35.2 hrs', genre: 'Open World Action' },
+  { title: 'The Last of Us Part I', id: '1888930', hours: '13.1 hrs', genre: 'Narrative Adventure' },
   { title: 'Black Myth: Wukong', id: '2358720', hours: '16.4 hrs', genre: 'Action RPG' },
-  { title: 'It Takes Two', id: '1426210', hours: '9.8 hrs', genre: 'Co-op' }
+  { title: 'It Takes Two', id: '1426210', hours: '9.8 hrs', genre: 'Co-op Adventure' }
 ];
 
 const grid = document.getElementById('gamegrid');
 const navItems = [...document.querySelectorAll('[data-view]')];
 const search = document.getElementById('gameSearch');
 let view = 'all';
+let activeGameModalData = null;
 
-function shuffle(items) {
-  const a = [...items];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+const visitGames = [...catalog];
+const recentIds = new Set(visitGames.slice(0, 6).map(g => g.id));
+const favoriteIds = new Set(visitGames.slice(0, 4).map(g => g.id));
+
+function showToast(message) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span>✦</span> <span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
 }
 
-const visitGames = shuffle(catalog).slice(0, 10);
-const recentIds = new Set(shuffle(visitGames).slice(0, Math.min(5, visitGames.length)).map(g => g.id));
-const favoriteIds = new Set(shuffle(visitGames).slice(0, Math.min(4, visitGames.length)).map(g => g.id));
+function spawnSparkles(e) {
+  const rect = e.target.getBoundingClientRect();
+  const x = e.clientX || (rect.left + rect.width / 2);
+  const y = e.clientY || (rect.top + rect.height / 2);
+  for (let i = 0; i < 6; i++) {
+    const p = document.createElement('div');
+    p.className = 'sparkle-particle';
+    p.style.left = x + 'px';
+    p.style.top = y + 'px';
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 30 + Math.random() * 40;
+    p.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+    p.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 600);
+  }
+}
 
 function renderGames() {
   const query = search.value.trim().toLowerCase();
@@ -1165,7 +1474,8 @@ function renderGames() {
   shown.forEach((g, i) => {
     const card = document.createElement('article');
     card.className = 'game';
-    card.style.animationDelay = (i * 0.04) + 's';
+    card.style.animationDelay = (i * 0.03) + 's';
+    
     const cover = document.createElement('div');
     cover.className = 'cover';
     const img = document.createElement('img');
@@ -1193,8 +1503,14 @@ function renderGames() {
     const meta = document.createElement('small');
     meta.textContent = recentIds.has(g.id) ? g.hours + ' played' : g.genre;
     card.append(cover, title, meta);
+
+    card.addEventListener('click', (e) => {
+      openGameModal(g);
+      spawnSparkles(e);
+    });
     grid.appendChild(card);
   });
+
   const labels = { all: 'Your games', recent: 'Recent', favorites: 'Pinned' };
   const titles = { all: 'All games', recent: 'Recent', favorites: 'Pinned' };
   document.getElementById('gamesHeading').textContent = labels[view];
@@ -1205,10 +1521,55 @@ function renderGames() {
   navItems.forEach(b => b.classList.toggle('active', b.dataset.view === view));
 }
 
-navItems.forEach(b => b.addEventListener('click', () => { view = b.dataset.view; renderGames(); }));
+navItems.forEach(b => b.addEventListener('click', (e) => { view = b.dataset.view; renderGames(); spawnSparkles(e); }));
 search.addEventListener('input', renderGames);
 renderGames();
 
+/* Game Modal Logic */
+const modalOverlay = document.getElementById('gameModalOverlay');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const modalLaunchBtn = document.getElementById('modalLaunchBtn');
+const modalPinBtn = document.getElementById('modalPinBtn');
+
+function openGameModal(game) {
+  activeGameModalData = game;
+  document.getElementById('modalGameTitle').textContent = game.title;
+  document.getElementById('modalGameGenre').textContent = game.genre;
+  document.getElementById('modalGameHours').textContent = game.hours;
+  document.getElementById('modalGameId').textContent = game.id;
+  modalPinBtn.textContent = favoriteIds.has(game.id) ? '★ Unpin' : '☆ Pin to Favorites';
+  modalOverlay.classList.add('open');
+  playClick('nav');
+}
+
+function closeGameModal() {
+  modalOverlay.classList.remove('open');
+}
+
+modalCloseBtn.addEventListener('click', closeGameModal);
+modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeGameModal(); });
+
+modalLaunchBtn.addEventListener('click', (e) => {
+  closeGameModal();
+  showToast(`Launched "${activeGameModalData.title}" successfully!`);
+  playClick('download');
+  spawnSparkles(e);
+});
+
+modalPinBtn.addEventListener('click', (e) => {
+  if (favoriteIds.has(activeGameModalData.id)) {
+    favoriteIds.delete(activeGameModalData.id);
+    showToast(`Unpinned "${activeGameModalData.title}"`);
+  } else {
+    favoriteIds.add(activeGameModalData.id);
+    showToast(`Pinned "${activeGameModalData.title}" to favorites!`);
+  }
+  renderGames();
+  closeGameModal();
+  spawnSparkles(e);
+});
+
+/* Sidebar toggle */
 const sidebar = document.getElementById('libSidebar');
 const libMain = document.getElementById('libMain');
 document.getElementById('sidebarToggle').addEventListener('click', () => {
@@ -1217,6 +1578,7 @@ document.getElementById('sidebarToggle').addEventListener('click', () => {
   libMain.classList.toggle('dimmed', !collapsing);
 });
 
+/* Tabs */
 const tabs = [...document.querySelectorAll('.tab')];
 const tabbar = document.getElementById('tabbar');
 const indicator = document.getElementById('tabIndicator');
@@ -1240,7 +1602,7 @@ function setTab(name) {
   panelSettings.classList.toggle('active', name === 'settings');
 }
 
-tabs.forEach(tab => tab.addEventListener('click', () => setTab(tab.dataset.tab)));
+tabs.forEach(tab => tab.addEventListener('click', (e) => { setTab(tab.dataset.tab); spawnSparkles(e); }));
 requestAnimationFrame(() => {
   const active = tabs.find(t => t.classList.contains('active'));
   if (active) moveIndicator(active);
@@ -1250,42 +1612,43 @@ window.addEventListener('resize', () => {
   if (active) moveIndicator(active);
 });
 
+/* Themes */
 const themes = [
   {
     name: 'Big Picture',
-    bg: '#0b1016', card: '#141b24', accent: '#1a9fff', text: '#e8eef4',
-    side: '#0b1016', row: '#1c2633',
-    blurb: 'Deep navy, bright blue, and restrained surfaces.'
+    bg: '#06090e', card: '#101722', accent: '#38bdf8', text: '#f1f5f9',
+    side: '#06090e', row: '#121a26',
+    blurb: 'Deep navy, vibrant blue accents, and pristine frosted surfaces.'
   },
   {
     name: 'Steam Classic',
     bg: '#1b2838', card: '#16202d', accent: '#66c0f4', text: '#c7d5e0',
     side: '#171a21', row: '#2a475e',
-    blurb: 'Classic Steam client palette with familiar blue highlights.'
+    blurb: 'Traditional Steam client palette with familiar blue highlights.'
   },
   {
     name: 'Midnight Purple',
-    bg: '#0b0512', card: '#1a102f', accent: '#9d4edd', text: '#ffffff',
-    side: '#12081c', row: '#1a1230',
-    blurb: 'Violet accents over near-black surfaces.'
+    bg: '#090410', card: '#160e2b', accent: '#b55fe6', text: '#ffffff',
+    side: '#0e0618', row: '#1b1030',
+    blurb: 'Deep violet ambiance over high-contrast OLED black.'
   },
   {
     name: 'Cyber Neon',
-    bg: '#0a0a0f', card: '#12121a', accent: '#00f5d4', text: '#e0fff9',
-    side: '#08080c', row: '#101018',
-    blurb: 'Mint accents and sharp contrast on charcoal.'
+    bg: '#07070c', card: '#101018', accent: '#00f5d4', text: '#e0fff9',
+    side: '#050509', row: '#0e141c',
+    blurb: 'Cyan mint highlights and crisp dark tones.'
   },
   {
     name: 'Ember',
-    bg: '#140a08', card: '#1f100c', accent: '#ff6b35', text: '#ffe8d6',
-    side: '#0f0705', row: '#1c100c',
-    blurb: 'Warm coal tones and ember orange.'
+    bg: '#120705', card: '#1c0f0b', accent: '#ff6b35', text: '#ffe8d6',
+    side: '#0a0403', row: '#180e0a',
+    blurb: 'Warm coal surfaces and glowing ember orange.'
   },
   {
     name: 'Forest',
-    bg: '#0a120e', card: '#122018', accent: '#3dd68c', text: '#d4f5e4',
-    side: '#07100b', row: '#0e1a14',
-    blurb: 'Quiet green accents on deep forest tones.'
+    bg: '#07100b', card: '#0f1c15', accent: '#3dd68c', text: '#d4f5e4',
+    side: '#040b08', row: '#0b1711',
+    blurb: 'Refined pine green accents over deep canopy tones.'
   }
 ];
 
@@ -1295,7 +1658,7 @@ themes.forEach((t, i) => {
   b.type = 'button';
   b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
   b.innerHTML = `<span class="swatch" style="background:${t.accent}"></span>${t.name}`;
-  b.addEventListener('click', () => {
+  b.addEventListener('click', (e) => {
     document.querySelectorAll('#themebuttons button').forEach(x => x.setAttribute('aria-pressed', 'false'));
     b.setAttribute('aria-pressed', 'true');
     const chrome = document.getElementById('appChrome');
@@ -1308,17 +1671,54 @@ themes.forEach((t, i) => {
     document.getElementById('themeName').textContent = t.name;
     document.getElementById('themeBlurb').textContent = t.blurb;
     document.documentElement.style.setProperty('--accent', t.accent);
-    document.querySelectorAll('.game').forEach((card, idx) => {
-      card.style.animation = 'none';
-      void card.offsetWidth;
-      card.style.animation = '';
-      card.style.animationDelay = (idx * 0.03) + 's';
-    });
+    document.documentElement.style.setProperty('--accent-glow', colorHexToRgba(t.accent, 0.4));
+    showToast(`Applied theme: ${t.name}`);
+    spawnSparkles(e);
   });
   buttons.appendChild(b);
 });
 
-/* ── Click sounds — short noise bursts (real UI clicks, not tones) ── */
+function colorHexToRgba(hex, alpha) {
+  let c = hex.replace('#','');
+  if(c.length === 3) c = c.split('').map(x => x + x).join('');
+  const num = parseInt(c, 16);
+  return `rgba(${num >> 16}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
+}
+
+/* Simulate Download & 7-Zip Extraction */
+document.getElementById('simulateDownloadBtn').addEventListener('click', (e) => {
+  showToast('Starting SteamRIP download stream...');
+  spawnSparkles(e);
+  setTimeout(() => {
+    showToast('Download complete. Launching 7-Zip extraction...');
+    playClick('download');
+  }, 2000);
+  setTimeout(() => {
+    showToast('Successfully unpacked and added to library!');
+  }, 4000);
+});
+
+document.getElementById('fetchCoversBtn').addEventListener('click', () => {
+  showToast('Fetched missing Steam library covers!');
+});
+
+/* Subtle 3D Tilt Effect on Preview */
+const previewCard = document.getElementById('previewCard');
+previewCard.addEventListener('mousemove', e => {
+  const rect = previewCard.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const xc = rect.width / 2;
+  const yc = rect.height / 2;
+  const dx = (x - xc) / xc;
+  const dy = (y - yc) / yc;
+  previewCard.style.transform = `rotateX(${-dy * 1.5}deg) rotateY(${dx * 1.5}deg)`;
+});
+previewCard.addEventListener('mouseleave', () => {
+  previewCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+});
+
+/* Web Audio Click Sound Effects */
 let audioCtx = null;
 function getAudio() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1339,8 +1739,6 @@ function playClick(kind) {
   try {
     const ctx = getAudio();
     const t = ctx.currentTime;
-
-    // Mechanical UI click: filtered noise + tiny body thump
     const presets = {
       tab:      { dur: 0.028, hp: 900,  lp: 4200, noise: 0.22, thump: 140, thumpGain: 0.07 },
       nav:      { dur: 0.022, hp: 1200, lp: 5000, noise: 0.18, thump: 160, thumpGain: 0.05 },
@@ -1350,7 +1748,6 @@ function playClick(kind) {
     };
     const p = presets[kind] || presets.default;
 
-    // Noise transient (the "tick")
     const src = ctx.createBufferSource();
     src.buffer = noiseBuffer(ctx, p.dur);
     const hp = ctx.createBiquadFilter();
@@ -1369,7 +1766,6 @@ function playClick(kind) {
     src.start(t);
     src.stop(t + p.dur + 0.01);
 
-    // Soft low thump (button body)
     const osc = ctx.createOscillator();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(p.thump, t);
@@ -1381,38 +1777,11 @@ function playClick(kind) {
     tg.connect(ctx.destination);
     osc.start(t);
     osc.stop(t + 0.05);
-
-    // Download gets a second lighter tick for a "confirm" feel
-    if (kind === 'download') {
-      const src2 = ctx.createBufferSource();
-      src2.buffer = noiseBuffer(ctx, 0.02);
-      const hp2 = ctx.createBiquadFilter();
-      hp2.type = 'highpass';
-      hp2.frequency.value = 1500;
-      const lp2 = ctx.createBiquadFilter();
-      lp2.type = 'lowpass';
-      lp2.frequency.value = 6000;
-      const g2 = ctx.createGain();
-      const t2 = t + 0.055;
-      g2.gain.setValueAtTime(0.12, t2);
-      g2.gain.exponentialRampToValueAtTime(0.001, t2 + 0.02);
-      src2.connect(hp2);
-      hp2.connect(lp2);
-      lp2.connect(g2);
-      g2.connect(ctx.destination);
-      src2.start(t2);
-      src2.stop(t2 + 0.03);
-    }
-  } catch (_) { /* audio blocked or unavailable */ }
+  } catch (_) {}
 }
 
-/* Wire click sounds */
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => playClick('tab'));
-});
-navItems.forEach(b => {
-  b.addEventListener('click', () => playClick('nav'));
-});
+tabs.forEach(tab => tab.addEventListener('click', () => playClick('tab')));
+navItems.forEach(b => b.addEventListener('click', () => playClick('nav')));
 document.getElementById('sidebarToggle').addEventListener('click', () => playClick('nav'));
 document.querySelectorAll('.tool-btn, .store-toolbar button, .rail-btn').forEach(el => {
   el.addEventListener('click', () => playClick('nav'));
@@ -1420,11 +1789,8 @@ document.querySelectorAll('.tool-btn, .store-toolbar button, .rail-btn').forEach
 document.getElementById('themebuttons').addEventListener('click', e => {
   if (e.target.closest('button')) playClick('theme');
 });
-document.querySelectorAll('.btn-ghost').forEach(el => {
-  el.addEventListener('click', () => playClick('nav'));
-});
 
-/* ── Confetti on download ── */
+/* Confetti on download */
 const confettiCanvas = document.getElementById('confetti-canvas');
 const confettiCtx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
@@ -1439,24 +1805,24 @@ window.addEventListener('resize', resizeConfetti);
 
 function spawnConfetti(x, y) {
   const colors = [
-    getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#1a9fff',
-    '#66c0f4', '#ffc04d', '#35c96f', '#ff6259', '#9d4edd', '#00f5d4', '#ffffff'
+    getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#38bdf8',
+    '#66c0f4', '#ffc04d', '#35c96f', '#ff5f56', '#b55fe6', '#00f5d4', '#ffffff'
   ];
-  const count = 90;
+  const count = 100;
   for (let i = 0; i < count; i++) {
     const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
-    const speed = 4 + Math.random() * 9;
+    const speed = 4 + Math.random() * 10;
     confettiPieces.push({
       x, y,
       vx: Math.cos(angle) * speed * (0.4 + Math.random()),
-      vy: Math.sin(angle) * speed * 0.35 - (5 + Math.random() * 8),
+      vy: Math.sin(angle) * speed * 0.35 - (6 + Math.random() * 8),
       w: 4 + Math.random() * 6,
       h: 6 + Math.random() * 8,
       color: colors[i % colors.length],
       rot: Math.random() * Math.PI * 2,
-      vr: (Math.random() - 0.5) * 0.35,
+      vr: (Math.random() - 0.5) * 0.4,
       life: 1,
-      decay: 0.008 + Math.random() * 0.012,
+      decay: 0.007 + Math.random() * 0.01,
       gravity: 0.22 + Math.random() * 0.12
     });
   }
@@ -1494,9 +1860,10 @@ document.querySelectorAll('.download-btn').forEach(btn => {
     playClick('download');
     const rect = btn.getBoundingClientRect();
     spawnConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    spawnSparkles(e);
+    showToast('Download initialized! Package ready.');
   });
 });
 </script>
 </body>
 </html>
-
