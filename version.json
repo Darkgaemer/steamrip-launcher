@@ -1,5 +1,5 @@
 {
-  "version": "2", //always change with newer versions
+  "version": "6", //always change with newer versions
   "url": "https://darkgaemer.github.io/steamrip-launcher/",
   "download_url": "https://github.com/Darkgaemer/steamrip-launcher/releases/download/v2.0/SteamRIPGameHub.zip" //always change with newer versions
 }
